@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
             GuardianRegistrationFragment()
         ).commit()
     }
-    //Test comment
+
     override fun onBackPressed() {
         supportFragmentManager.fragments.forEach {
             if(it is ICanHandleBackPress){
