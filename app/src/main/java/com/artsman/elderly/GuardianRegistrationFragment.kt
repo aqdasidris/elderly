@@ -2,12 +2,16 @@ package com.artsman.elderly
 
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.transition.Scene
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import androidx.annotation.RequiresApi
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.artsman.elderly.Action.*
@@ -48,7 +52,7 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
         // Inflate the layout for this fragment
 
         val view=inflater.inflate(R.layout.fragment_guardian_registration, container, false)
-        viewModel= ElderlyViewModel()
+        viewModel= ElderlyViewModel(RegistrationRepo())
         viewModel.getState().observe(this, elderlyObserver)
         mSceneRoot=view.findViewById<View>(R.id.sceneRoot)
         return view
@@ -86,8 +90,28 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
             requireContext()
         )
         nameEmailRegistration.enter()
+
+        val edtName= mSceneRoot.findViewById<EditText>(R.id.edt_name)
+        val edtEmail= mSceneRoot.findViewById<EditText>(R.id.edt_email)
         val btn_nxt=mSceneRoot.findViewById<Button>(R.id.btn_next)
-        btn_nxt.setOnClickListener{viewModel.setAction(name_email_next_action)}
+        btn_nxt.setOnClickListener{
+            viewModel.putValue(ElderlyViewModel.DATA_EMAIL, edtEmail.text.toString())
+            viewModel.setAction(name_email_next_action)
+        }
+
+        edtName.addTextChangedListener(object: TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                viewModel.putValue(ElderlyViewModel.DATA_NAME, s.toString())
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+
+        })
+
+
+
     }
     fun configureRegistrationContactAddressScreen(){
         val contactAddressRegistration=Scene.getSceneForLayout(

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 
 
 
-class ElderlyViewModel{
+class ElderlyViewModel(val repository: IRegisterationRepository){
     private var mCurrentStates= MutableLiveData<States>()
     fun getState(): LiveData <States> {
         mCurrentStates.postValue(States.choose_user_state)
@@ -22,6 +22,7 @@ class ElderlyViewModel{
          }
         else if(action==Action.proceed_to_password_login_action){
              mCurrentStates.postValue(States.guardian_login_state)
+             repository.saveRegistration(getRegistrationData())
          }
         else if(action==Action.patient_user_type_action){
              mCurrentStates.postValue(States.patient_login_states)
@@ -64,7 +65,24 @@ class ElderlyViewModel{
         }
     }
 
+    private fun getRegistrationData(): RegistrationData {
+        return RegistrationData(name = registrationMap["name"] ?: "",
+                phone = registrationMap["phone"]?: "",
+                email = registrationMap["email"] ?: "",
+                address = registrationMap["address"] ?: ""
+            )
+    }
 
+    val registrationMap= mutableMapOf<String, String>()
+    fun putValue(key: String, value: String) {
+        registrationMap.put(key, value)
+    }
+
+
+    companion object{
+        const val DATA_NAME="name"
+        const val DATA_EMAIL="email"
+    }
 }
 enum class States{
     choose_user_state,
