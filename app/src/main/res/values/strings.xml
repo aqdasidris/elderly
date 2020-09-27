@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Elderly</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="next">Next</string>
+    <string name="pincode">Pincode</string>
+    <string name="address">Address</string>
+    <string name="contact_number">Contact Number</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="button">Button</string>
+    <string name="set_password">Set password</string>
+    <string name="enter_email_or_phone_no">Enter email or phone No.</string>
+    <string name="add_guardian">Add Guardian</string>
+    <string name="add_guardian_code">add guardian code</string>
+    <string name="gmail">Gmail</string>
+    <string name="login">login</string>
+    <string name="proceed">proceed</string>
+    <string name="patient">Patient</string>
+    <string name="guardian">Guardian</string>
+    <string name="textview">TextView</string>
+    <string name="choose_user_type">Choose user type</string>
+    <string name="done">Done</string>
+    <string name="add_event">Add event</string>
+    <string name="end_time">End time</string>
+    <string name="set_frequency">set frequency</string>
+    <string name="select_days">select days</string>
+    <string name="start_time">Start time</string>
+    <string name="event_name">Event Name</string>
+</resources>
