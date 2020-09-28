@@ -1,7 +1,6 @@
 package com.artsman.elderly
 
 import androidx.lifecycle.Observer
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -107,9 +106,12 @@ internal class ElderlyViewModeTest {
 
     @Test
     fun `after patient log in proceed to add guardian`(){
-
+        val guardiandatacheck=GuardianCode(guardiancode = "123456")
         viewModel.getState().observeForever(mockObserver)
+
+        viewModel.putValue("guardiancode", "123456")
         viewModel.setAction(Action.add_guardian_action)
+        Mockito.verify(mockRepo, atLeastOnce()).getGuardianCode(guardiandatacheck)
         Mockito.verify(mockObserver).onChanged(States.add_guardian_state)
         //assertEquals(States.add_guardian_state, viewModel.getState())
 
@@ -118,9 +120,14 @@ internal class ElderlyViewModeTest {
 
     @Test
     fun `after guardian log in add event`(){
+        val guardianLoginData= guardianLogin(email="aqdas.idris@gmail.com", setpassword="aqdas", confirmpassword="aqdas")
 
         viewModel.getState().observeForever(mockObserver)
+        viewModel.putValue("email","aqdas.idris@gmail.com")
+        viewModel.putValue("setpassword","aqdas")
+        viewModel.putValue("confirmpassword", "aqdas")
         viewModel.setAction(Action.log_in_action)
+        Mockito.verify(mockRepo, atLeastOnce()).getGuardianCreds(guardianLoginData)
         Mockito.verify(mockObserver).onChanged(States.add_event_state)
     }
 

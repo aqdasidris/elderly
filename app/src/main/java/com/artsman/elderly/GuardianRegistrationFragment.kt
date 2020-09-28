@@ -15,6 +15,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.artsman.elderly.Action.*
+import kotlinx.android.synthetic.main.layout_login.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -132,8 +133,16 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
             requireContext()
         )
         configuresetpassword.enter()
+        val edtUsername=mSceneRoot.findViewById<EditText>(R.id.edt_username)
+        val edtSetPassword=mSceneRoot.findViewById<EditText>(R.id.edt_set_password)
+        val edtConfirmPassword=mSceneRoot.findViewById<EditText>(R.id.edt_password)
+
         val btn_done=mSceneRoot.findViewById<Button>(R.id.btn_done)
-        btn_done.setOnClickListener { viewModel.setAction(log_in_action) }
+        btn_done.setOnClickListener {
+            viewModel.putValue(ElderlyViewModel.DATA_EMAIL, edt_username.text.toString())
+            viewModel.putValue(ElderlyViewModel.SETPASSWORD, edtSetPassword.text.toString())
+            viewModel.putValue(ElderlyViewModel.CONFIRMPASSWORD, edtConfirmPassword.text.toString())
+            viewModel.setAction(log_in_action) }
     }
     fun configurePatientLogin(){
         val  patientLogin=Scene.getSceneForLayout(
@@ -146,14 +155,13 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
         btn_patient_log_in.setOnClickListener { viewModel.setAction(add_guardian_action)}
     }
     fun configureAddguardianScreen(){
-        val addGuardian=Scene.getSceneForLayout(
-            mSceneRoot as ViewGroup?,
-            R.layout.layout_add_guardian,
-            requireContext()
-        )
+        val addGuardian=Scene.getSceneForLayout(mSceneRoot as ViewGroup?,R.layout.layout_add_guardian,requireContext())
         addGuardian.enter()
+        val edtGuardianCode=mSceneRoot.findViewById<EditText>(R.id.edt_guardian_code)
         val btn_add_gaurdian=mSceneRoot.findViewById<Button>(R.id.btn_add_gaurdian)
-        btn_add_gaurdian.setOnClickListener { viewModel.setAction(Action.done_action) }
+        btn_add_gaurdian.setOnClickListener {
+            viewModel.putValue(ElderlyViewModel.GUARDIAN_CODE, edtGuardianCode.text.toString())
+            viewModel.setAction(Action.done_action) }
     }
     fun configureUserTypeScreen(){
         val chooseUserType=Scene.getSceneForLayout(

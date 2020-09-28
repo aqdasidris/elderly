@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/txt_guardian_code"
+        android:id="@+id/edt_guardian_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -24,9 +23,9 @@
         android:id="@+id/btn_add_gaurdian"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
         android:text="@string/add_guardian"
-        app:layout_constraintEnd_toEndOf="@+id/txt_guardian_code"
-        app:layout_constraintStart_toStartOf="@+id/txt_guardian_code"
-        app:layout_constraintTop_toBottomOf="@+id/txt_guardian_code" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/edt_guardian_code"
+        app:layout_constraintStart_toStartOf="@+id/edt_guardian_code"
+        app:layout_constraintTop_toBottomOf="@+id/edt_guardian_code" />
 </androidx.constraintlayout.widget.ConstraintLayout>

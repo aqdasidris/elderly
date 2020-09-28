@@ -29,9 +29,11 @@ class ElderlyViewModel(val repository: IRegisterationRepository){
          }
         else if(action==Action.add_guardian_action){
              mCurrentStates.postValue(States.add_guardian_state)
+             repository.getGuardianCode(getGuardianCode())
          }
          else if(action==Action.log_in_action){
             mCurrentStates.postValue(States.add_event_state)
+             repository.getGuardianCreds(getGuardianCreds())
          }
         else if(action==Action.add_event_action){
              mCurrentStates.postValue(States.choose_user_state)
@@ -70,7 +72,11 @@ class ElderlyViewModel(val repository: IRegisterationRepository){
                 phone = registrationMap["phone"]?: "",
                 email = registrationMap["email"] ?: "",
                 address = registrationMap["address"] ?: ""
+
             )
+    }
+    private fun  getGuardianCode(): GuardianCode{
+        return GuardianCode(guardiancode = registrationMap["guardiancode"] ?: "",)
     }
 
     val registrationMap= mutableMapOf<String, String>()
@@ -78,10 +84,20 @@ class ElderlyViewModel(val repository: IRegisterationRepository){
         registrationMap.put(key, value)
     }
 
+    private fun getGuardianCreds(): guardianLogin{
+        return guardianLogin(email= registrationMap["email"] ?: "",
+        setpassword =registrationMap["setpassword"] ?: "",
+        confirmpassword = registrationMap["confirmpassword"] ?: "")
+    }
+
+
 
     companion object{
         const val DATA_NAME="name"
         const val DATA_EMAIL="email"
+        const val GUARDIAN_CODE="guardiancode"
+        const val SETPASSWORD="setpassword"
+        const val CONFIRMPASSWORD="confirmpassword"
     }
 }
 enum class States{
