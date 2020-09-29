@@ -71,7 +71,8 @@ class ElderlyViewModel(val repository: IRegisterationRepository){
         return RegistrationData(name = registrationMap["name"] ?: "",
                 phone = registrationMap["phone"]?: "",
                 email = registrationMap["email"] ?: "",
-                address = registrationMap["address"] ?: ""
+                address = registrationMap["address"] ?: "",
+                pincode= registrationMap["pincode"]?: ""
 
             )
     }
@@ -98,6 +99,9 @@ class ElderlyViewModel(val repository: IRegisterationRepository){
         const val GUARDIAN_CODE="guardiancode"
         const val SETPASSWORD="setpassword"
         const val CONFIRMPASSWORD="confirmpassword"
+        const val PHONE="phone"
+        const val PINCODE="pincode"
+        const val ADDRESS="address"
     }
 }
 enum class States{

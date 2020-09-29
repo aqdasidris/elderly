@@ -15,6 +15,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.artsman.elderly.Action.*
+import kotlinx.android.synthetic.main.layout_contact_address_registration.*
 import kotlinx.android.synthetic.main.layout_login.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -121,10 +122,15 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
             requireContext()
         )
         contactAddressRegistration.enter()
+        val edtContact=mSceneRoot.findViewById<EditText>(R.id.edt_contact)
+        val edtAddress=mSceneRoot.findViewById<EditText>(R.id.edt_address)
+        val edtPincode=mSceneRoot.findViewById<EditText>(R.id.edt_pincode)
         val btn_next_page_password=mSceneRoot.findViewById<Button>(R.id.btn_next_page_password)
-        btn_next_page_password.setOnClickListener{viewModel.setAction(
-            proceed_to_password_login_action
-        )}
+        btn_next_page_password.setOnClickListener{
+            viewModel.putValue(ElderlyViewModel.PHONE, edtContact.text.toString())
+            viewModel.putValue(ElderlyViewModel.ADDRESS, edtAddress.text.toString())
+            viewModel.putValue(ElderlyViewModel.PINCODE, edtPincode.text.toString())
+            viewModel.setAction(proceed_to_password_login_action)}
     }
     fun configureSetpasswordScreen(){
         val configuresetpassword=Scene.getSceneForLayout(
@@ -139,7 +145,7 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
 
         val btn_done=mSceneRoot.findViewById<Button>(R.id.btn_done)
         btn_done.setOnClickListener {
-            viewModel.putValue(ElderlyViewModel.DATA_EMAIL, edt_username.text.toString())
+            viewModel.putValue(ElderlyViewModel.DATA_EMAIL, edtUsername.text.toString())
             viewModel.putValue(ElderlyViewModel.SETPASSWORD, edtSetPassword.text.toString())
             viewModel.putValue(ElderlyViewModel.CONFIRMPASSWORD, edtConfirmPassword.text.toString())
             viewModel.setAction(log_in_action) }

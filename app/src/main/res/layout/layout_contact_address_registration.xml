@@ -7,12 +7,12 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/txt_contact"
+        android:id="@+id/edt_contact"
         android:layout_width="210dp"
         android:layout_height="45dp"
         android:ems="10"
         android:hint="@string/contact_number"
-        android:inputType="phone"
+        android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,7 +20,7 @@
         app:layout_constraintVertical_bias="0.29000002" />
 
     <EditText
-        android:id="@+id/txt_address"
+        android:id="@+id/edt_address"
         android:layout_width="210dp"
         android:layout_height="45dp"
         android:layout_marginTop="56dp"
@@ -29,14 +29,14 @@
         android:hint="@string/address"
         android:inputType="textMultiLine"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/txt_contact"
+        app:layout_constraintEnd_toEndOf="@+id/edt_contact"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/txt_contact"
-        app:layout_constraintTop_toBottomOf="@+id/txt_contact"
+        app:layout_constraintStart_toStartOf="@+id/edt_contact"
+        app:layout_constraintTop_toBottomOf="@+id/edt_contact"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/txt_Pincode"
+        android:id="@+id/edt_pincode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
@@ -44,10 +44,10 @@
         android:hint="@string/pincode"
         android:inputType="textPostalAddress"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/txt_address"
+        app:layout_constraintEnd_toEndOf="@+id/edt_address"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/txt_address"
-        app:layout_constraintTop_toBottomOf="@+id/txt_address"
+        app:layout_constraintStart_toStartOf="@+id/edt_address"
+        app:layout_constraintTop_toBottomOf="@+id/edt_address"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
@@ -56,7 +56,7 @@
         android:layout_height="wrap_content"
         android:text="@string/proceed"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/txt_Pincode"
-        app:layout_constraintStart_toStartOf="@+id/txt_Pincode"
-        app:layout_constraintTop_toBottomOf="@+id/txt_Pincode" />
+        app:layout_constraintEnd_toEndOf="@+id/edt_pincode"
+        app:layout_constraintStart_toStartOf="@+id/edt_pincode"
+        app:layout_constraintTop_toBottomOf="@+id/edt_pincode" />
 </androidx.constraintlayout.widget.ConstraintLayout>
