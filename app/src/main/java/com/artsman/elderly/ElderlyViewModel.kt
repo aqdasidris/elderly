@@ -26,10 +26,11 @@ class ElderlyViewModel(val repository: IRegisterationRepository){
          }
         else if(action==Action.patient_user_type_action){
              mCurrentStates.postValue(States.patient_login_states)
+
          }
         else if(action==Action.add_guardian_action){
              mCurrentStates.postValue(States.add_guardian_state)
-             repository.getGuardianCode(getGuardianCode())
+             repository.getPatientMail(getPatientMail())
          }
          else if(action==Action.log_in_action){
             mCurrentStates.postValue(States.add_event_state)
@@ -40,6 +41,7 @@ class ElderlyViewModel(val repository: IRegisterationRepository){
          }
         else if(action==Action.done_action){
              mCurrentStates.postValue(States.choose_user_state)
+             repository.getGuardianCode(getGuardianCode())
          }
         else if(action==Action.back_action){
              if(mCurrentStates.value==States.guardian_registration_name_email_state){
@@ -90,6 +92,9 @@ class ElderlyViewModel(val repository: IRegisterationRepository){
         setpassword =registrationMap["setpassword"] ?: "",
         confirmpassword = registrationMap["confirmpassword"] ?: "")
     }
+    private fun getPatientMail(): getPatientMail{
+        return getPatientMail(mail = registrationMap["mail"]?: "")
+    }
 
 
 
@@ -102,6 +107,7 @@ class ElderlyViewModel(val repository: IRegisterationRepository){
         const val PHONE="phone"
         const val PINCODE="pincode"
         const val ADDRESS="address"
+        const val MAIL="mail"
     }
 }
 enum class States{

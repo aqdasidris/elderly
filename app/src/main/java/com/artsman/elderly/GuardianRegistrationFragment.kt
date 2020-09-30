@@ -1,5 +1,6 @@
 package com.artsman.elderly
 
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -11,12 +12,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.annotation.RequiresApi
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.artsman.elderly.Action.*
-import kotlinx.android.synthetic.main.layout_contact_address_registration.*
-import kotlinx.android.synthetic.main.layout_login.*
+import com.artsman.elderly.data.AppPreference
+import com.artsman.elderly.data.IPreferenceHelper
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -47,6 +47,8 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
         }
     }
 
+    private fun getPrefHelper(): IPreferenceHelper=AppPreference(activity as Context)
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -54,7 +56,7 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
         // Inflate the layout for this fragment
 
         val view=inflater.inflate(R.layout.fragment_guardian_registration, container, false)
-        viewModel= ElderlyViewModel(RegistrationRepo())
+        viewModel= ElderlyViewModel(RegistrationRepo(getPrefHelper()))
         viewModel.getState().observe(this, elderlyObserver)
         mSceneRoot=view.findViewById<View>(R.id.sceneRoot)
         return view
@@ -157,8 +159,12 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
             requireContext()
         )
         patientLogin.enter()
+        val edtPateintMail=mSceneRoot.findViewById<EditText>(R.id.edt_patient_email)
         val btn_patient_log_in=mSceneRoot.findViewById<Button>(R.id.btn_patient_log_in)
-        btn_patient_log_in.setOnClickListener { viewModel.setAction(add_guardian_action)}
+        btn_patient_log_in.setOnClickListener {
+            viewModel.putValue(ElderlyViewModel.MAIL, edtPateintMail.text.toString())
+            viewModel.setAction(add_guardian_action)}
+
     }
     fun configureAddguardianScreen(){
         val addGuardian=Scene.getSceneForLayout(mSceneRoot as ViewGroup?,R.layout.layout_add_guardian,requireContext())

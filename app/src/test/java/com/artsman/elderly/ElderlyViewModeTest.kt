@@ -9,6 +9,7 @@ import org.mockito.Mockito
 import org.mockito.Mockito.atLeastOnce
 import org.mockito.Mockito.times
 import org.mockito.MockitoAnnotations
+import org.mockito.internal.verification.Times
 
 @ExtendWith(InstantExecutorExtension::class)
 internal class ElderlyViewModeTest {
@@ -76,13 +77,14 @@ internal class ElderlyViewModeTest {
 
     @Test
     fun `after adding contact address proceed to set password and log`(){
-        val registationObject=RegistrationData(name = "Aqdas", phone = "912345678" , address = "Ahmed Tower", email = "aqdas@gmail.com")
+        val registationObject=RegistrationData(name = "Aqdas", phone = "912345678" , address = "Ahmed Tower", email = "aqdas@gmail.com", pincode="400008")
         viewModel.getState().observeForever(mockObserver)
 
         viewModel.putValue("name", "Aqdas")
         viewModel.putValue("address", "Ahmed Tower")
         viewModel.putValue("email", "aqdas@gmail.com")
         viewModel.putValue("phone", "912345678")
+        viewModel.putValue("pincode", "400008")
 
         viewModel.setAction(Action.proceed_to_password_login_action)
 
@@ -96,7 +98,14 @@ internal class ElderlyViewModeTest {
     fun `choosing patient as user type`(){
 
         viewModel.getState().observeForever(mockObserver)
+
+
         viewModel.setAction(Action.patient_user_type_action)
+
+
+
+
+
         Mockito.verify(mockObserver).onChanged(States.patient_login_states)
         //assertEquals(States.patient_login_states, viewModel.getState())
         viewModel.setAction(Action.back_action)
@@ -106,12 +115,15 @@ internal class ElderlyViewModeTest {
 
     @Test
     fun `after patient log in proceed to add guardian`(){
-        val guardiandatacheck=GuardianCode(guardiancode = "123456")
-        viewModel.getState().observeForever(mockObserver)
+        val getPatientEmail=getPatientMail(mail= "aqdas.idris@gmail.com")
 
-        viewModel.putValue("guardiancode", "123456")
+
+        viewModel.getState().observeForever(mockObserver)
+        viewModel.putValue("mail", "aqdas.idris@gmail.com")
+
+
         viewModel.setAction(Action.add_guardian_action)
-        Mockito.verify(mockRepo, atLeastOnce()).getGuardianCode(guardiandatacheck)
+        Mockito.verify(mockRepo, atLeastOnce()).getPatientMail(getPatientEmail)
         Mockito.verify(mockObserver).onChanged(States.add_guardian_state)
         //assertEquals(States.add_guardian_state, viewModel.getState())
 
@@ -129,6 +141,16 @@ internal class ElderlyViewModeTest {
         viewModel.setAction(Action.log_in_action)
         Mockito.verify(mockRepo, atLeastOnce()).getGuardianCreds(guardianLoginData)
         Mockito.verify(mockObserver).onChanged(States.add_event_state)
+    }
+
+    @Test
+    fun `after patient log in add guardian`(){
+        val guardiandatacheck=GuardianCode(guardiancode = "123456")
+        viewModel.getState().observeForever(mockObserver)
+        viewModel.putValue("guardiancode", "123456")
+        viewModel.setAction(Action.done_action)
+        Mockito.verify(mockRepo, atLeastOnce()).getGuardianCode(guardiandatacheck)
+        Mockito.verify(mockObserver, times(2)).onChanged(States.choose_user_state)
     }
 
     @Test
