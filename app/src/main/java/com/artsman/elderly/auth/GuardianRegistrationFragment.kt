@@ -1,6 +1,7 @@
-package com.artsman.elderly
+package com.artsman.elderly.auth
 
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -14,9 +15,11 @@ import android.widget.EditText
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.artsman.elderly.*
 import com.artsman.elderly.Action.*
 import com.artsman.elderly.data.AppPreference
 import com.artsman.elderly.data.IPreferenceHelper
+import com.artsman.elderly.events.EventActivity
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,7 +33,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
     // TODO: Rename and change types of parameters
-    private lateinit var mSceneRoot: View
+        private lateinit var mSceneRoot: View
     private lateinit var viewModel: ElderlyViewModel
     private val elderlyObserver = Observer<States>{ s->
         setState(s)
@@ -40,12 +43,14 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
 
         }
     }
+
 
     private fun getPrefHelper(): IPreferenceHelper=AppPreference(activity as Context)
 
@@ -60,6 +65,7 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
         viewModel.getState().observe(this, elderlyObserver)
         mSceneRoot=view.findViewById<View>(R.id.sceneRoot)
         return view
+
 
     }
 
@@ -150,7 +156,9 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
             viewModel.putValue(ElderlyViewModel.DATA_EMAIL, edtUsername.text.toString())
             viewModel.putValue(ElderlyViewModel.SETPASSWORD, edtSetPassword.text.toString())
             viewModel.putValue(ElderlyViewModel.CONFIRMPASSWORD, edtConfirmPassword.text.toString())
-            viewModel.setAction(log_in_action) }
+            viewModel.setAction(log_in_action)
+            startEvent()
+        }
     }
     fun configurePatientLogin(){
         val  patientLogin=Scene.getSceneForLayout(
@@ -167,7 +175,8 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
 
     }
     fun configureAddguardianScreen(){
-        val addGuardian=Scene.getSceneForLayout(mSceneRoot as ViewGroup?,R.layout.layout_add_guardian,requireContext())
+        val addGuardian=Scene.getSceneForLayout(mSceneRoot as ViewGroup?,
+            R.layout.layout_add_guardian,requireContext())
         addGuardian.enter()
         val edtGuardianCode=mSceneRoot.findViewById<EditText>(R.id.edt_guardian_code)
         val btn_add_gaurdian=mSceneRoot.findViewById<Button>(R.id.btn_add_gaurdian)
@@ -187,46 +196,42 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
         val btn_choose_patient=mSceneRoot.findViewById<Button>(R.id.btn_choose_patient)
         btn_choose_patient.setOnClickListener { viewModel.setAction(patient_user_type_action) }
     }
-    fun configureAddEventScreen(){
-        val addEvent=Scene.getSceneForLayout(mSceneRoot as ViewGroup?,R.layout.layout_add_event_guardian,requireContext())
-        addEvent.enter()
-        val btn_add_event=mSceneRoot.findViewById<Button>(R.id.btn_add_event)
-        btn_add_event.setOnClickListener { viewModel.setAction(Action.add_event_action) }
-    }
 
     private fun setState(states: States){
-        if(states==States.choose_user_state){
+        if(states== States.choose_user_state){
             configureUserTypeScreen()
         }
-        else if(states==States.guardian_registration_name_email_state){
+        else if(states== States.guardian_registration_name_email_state){
             configureRegistrationNameEmailScreen()
         }
-        else if(states==States.adding_guardian_address_contact_state){
+        else if(states== States.adding_guardian_address_contact_state){
             configureRegistrationContactAddressScreen()
         }
-        else if(states==States.guardian_login_state){
+        else if(states== States.guardian_login_state){
             configureSetpasswordScreen()
         }
-        else if(states==States.patient_login_states){
+        else if(states== States.patient_login_states){
             configurePatientLogin()
         }
-        else if(states==States.add_guardian_state){
+        else if(states== States.add_guardian_state){
             configureAddguardianScreen()
         }
-        else if(states==States.add_event_state){
-            configureAddEventScreen()
-        }
-        else if(states==States.kill_state){
+        else if(states== States.kill_state){
             activity?.finish()
         }
 
     }
 
 
+    private fun startEvent(){
+        val intent=Intent(requireActivity(), EventActivity::class.java)
+        startActivity(intent)
+    }
     override fun fragmentBackPress(): Boolean {
         viewModel.setAction(Action.back_action)
         return true;
     }
+
 
 }
 

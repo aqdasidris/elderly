@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/edt_person_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
@@ -37,13 +37,13 @@
         android:ems="10"
         android:hint="@string/start_time"
         android:inputType="time"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/edt_person_name"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintStart_toStartOf="@+id/edt_person_name"
+        app:layout_constraintTop_toBottomOf="@+id/edt_person_name" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/edt_person_name2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
@@ -56,30 +56,30 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextTime" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
+        android:id="@+id/edt_person_name3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
         android:ems="10"
         android:hint="@string/set_frequency"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName2"
+        app:layout_constraintEnd_toEndOf="@+id/edt_person_name2"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName2"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+        app:layout_constraintStart_toStartOf="@+id/edt_person_name2"
+        app:layout_constraintTop_toBottomOf="@+id/edt_person_name2" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName4"
+        android:id="@+id/edt_person_name4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
         android:ems="10"
         android:hint="@string/end_time"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName3"
+        app:layout_constraintEnd_toEndOf="@+id/edt_person_name3"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName3"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
+        app:layout_constraintStart_toStartOf="@+id/edt_person_name3"
+        app:layout_constraintTop_toBottomOf="@+id/edt_person_name3" />
 
     <Button
         android:id="@+id/btn_add_event"
@@ -87,9 +87,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
         android:text="@string/add_event"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName4"
+        app:layout_constraintEnd_toEndOf="@+id/edt_person_name4"
         app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName4"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName4" />
+        app:layout_constraintStart_toStartOf="@+id/edt_person_name4"
+        app:layout_constraintTop_toBottomOf="@+id/edt_person_name4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

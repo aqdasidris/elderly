@@ -2,7 +2,10 @@ package com.artsman.elderly
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-
+import com.artsman.elderly.auth.GuardianCode
+import com.artsman.elderly.auth.IRegisterationRepository
+import com.artsman.elderly.auth.PatientData
+import com.artsman.elderly.auth.RegistrationData
 
 
 class ElderlyViewModel(val repository: IRegisterationRepository){
@@ -33,11 +36,7 @@ class ElderlyViewModel(val repository: IRegisterationRepository){
              repository.getPatientMail(getPatientMail())
          }
          else if(action==Action.log_in_action){
-            mCurrentStates.postValue(States.add_event_state)
              repository.getGuardianCreds(getGuardianCreds())
-         }
-        else if(action==Action.add_event_action){
-             mCurrentStates.postValue(States.choose_user_state)
          }
         else if(action==Action.done_action){
              mCurrentStates.postValue(States.choose_user_state)
@@ -59,9 +58,6 @@ class ElderlyViewModel(val repository: IRegisterationRepository){
              else if(mCurrentStates.value==States.add_guardian_state){
                  mCurrentStates.postValue(States.patient_login_states)
              }
-             else if(mCurrentStates.value==States.add_event_state){
-                 mCurrentStates.postValue(States.guardian_login_state)
-             }
              else if(mCurrentStates.value==States.choose_user_state){
                  mCurrentStates.postValue(States.kill_state)
              }
@@ -78,7 +74,7 @@ class ElderlyViewModel(val repository: IRegisterationRepository){
 
             )
     }
-    private fun  getGuardianCode(): GuardianCode{
+    private fun  getGuardianCode(): GuardianCode {
         return GuardianCode(guardiancode = registrationMap["guardiancode"] ?: "",)
     }
 
@@ -87,13 +83,13 @@ class ElderlyViewModel(val repository: IRegisterationRepository){
         registrationMap.put(key, value)
     }
 
-    private fun getGuardianCreds(): guardianLogin{
-        return guardianLogin(email= registrationMap["email"] ?: "",
-        setpassword =registrationMap["setpassword"] ?: "",
-        confirmpassword = registrationMap["confirmpassword"] ?: "")
+    private fun getGuardianCreds(): GuardianCreds{
+        return GuardianCreds(email= registrationMap["email"] ?: "",
+        setPassword =registrationMap["setpassword"] ?: "",
+        confirmPassword = registrationMap["confirmpassword"] ?: "")
     }
-    private fun getPatientMail(): getPatientMail{
-        return getPatientMail(mail = registrationMap["mail"]?: "")
+    private fun getPatientMail(): PatientData {
+        return PatientData(mail = registrationMap["mail"]?: "")
     }
 
 
@@ -118,7 +114,6 @@ enum class States{
     patient_login_states,
     add_guardian_state,
     kill_state,
-    add_event_state,
 
 }
 enum class Action{
@@ -129,7 +124,6 @@ enum class Action{
     add_guardian_action,
     log_in_action,
     back_action,
-    add_event_action,
     done_action
 
 }
