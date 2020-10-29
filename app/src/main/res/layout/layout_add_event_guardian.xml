@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/edt_person_name"
+        android:id="@+id/edtEventName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
@@ -30,56 +30,56 @@
         app:layout_constraintVertical_bias="0.022" />
 
     <EditText
-        android:id="@+id/editTextTime"
+        android:id="@+id/edtStartTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         android:ems="10"
         android:hint="@string/start_time"
         android:inputType="time"
-        app:layout_constraintEnd_toEndOf="@+id/edt_person_name"
+        app:layout_constraintEnd_toEndOf="@+id/edtEventName"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/edt_person_name"
-        app:layout_constraintTop_toBottomOf="@+id/edt_person_name" />
+        app:layout_constraintStart_toStartOf="@+id/edtEventName"
+        app:layout_constraintTop_toBottomOf="@+id/edtEventName" />
 
     <EditText
-        android:id="@+id/edt_person_name2"
+        android:id="@+id/edtSelectDays"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
         android:ems="10"
         android:hint="@string/select_days"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTime"
+        app:layout_constraintEnd_toEndOf="@+id/edtStartTime"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextTime"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTime" />
+        app:layout_constraintStart_toStartOf="@+id/edtStartTime"
+        app:layout_constraintTop_toBottomOf="@+id/edtStartTime" />
 
     <EditText
-        android:id="@+id/edt_person_name3"
+        android:id="@+id/edtSetFrequency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
         android:ems="10"
         android:hint="@string/set_frequency"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/edt_person_name2"
+        app:layout_constraintEnd_toEndOf="@+id/edtSelectDays"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/edt_person_name2"
-        app:layout_constraintTop_toBottomOf="@+id/edt_person_name2" />
+        app:layout_constraintStart_toStartOf="@+id/edtSelectDays"
+        app:layout_constraintTop_toBottomOf="@+id/edtSelectDays" />
 
     <EditText
-        android:id="@+id/edt_person_name4"
+        android:id="@+id/edtEndTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
         android:ems="10"
         android:hint="@string/end_time"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/edt_person_name3"
+        app:layout_constraintEnd_toEndOf="@+id/edtSetFrequency"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/edt_person_name3"
-        app:layout_constraintTop_toBottomOf="@+id/edt_person_name3" />
+        app:layout_constraintStart_toStartOf="@+id/edtSetFrequency"
+        app:layout_constraintTop_toBottomOf="@+id/edtSetFrequency" />
 
     <Button
         android:id="@+id/btn_add_event"
@@ -87,9 +87,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
         android:text="@string/add_event"
-        app:layout_constraintEnd_toEndOf="@+id/edt_person_name4"
+        app:layout_constraintEnd_toEndOf="@+id/edtEndTime"
         app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="@+id/edt_person_name4"
-        app:layout_constraintTop_toBottomOf="@+id/edt_person_name4" />
+        app:layout_constraintStart_toStartOf="@+id/edtEndTime"
+        app:layout_constraintTop_toBottomOf="@+id/edtEndTime" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

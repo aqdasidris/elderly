@@ -1,5 +1,6 @@
 package com.artsman.elderly.events
 
+import android.content.Context
 import android.os.Bundle
 import android.transition.Scene
 import androidx.fragment.app.Fragment
@@ -9,6 +10,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.lifecycle.Observer
 import com.artsman.elderly.R
+import com.artsman.elderly.data.AppPreference
+import com.artsman.elderly.data.IPreferenceHelper
+import kotlinx.android.synthetic.main.layout_add_event_guardian.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -31,13 +35,16 @@ class AddEventFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private fun getPrefHelper(): IPreferenceHelper = AppPreference(activity as Context)
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-        viewModel= AddEventViewModel()
+
     }
 
     override fun onCreateView(
@@ -47,6 +54,8 @@ class AddEventFragment : Fragment() {
         // Inflate the layout for this fragment
 
         val view=  inflater.inflate(R.layout.fragment_add_event2, container, false)
+        viewModel= AddEventViewModel(EventRepository(getPrefHelper()))
+
         viewModel.setEventState().observe(this, eventObserver)
         rSceneRoot=view.findViewById<View>(R.id.addEventSceneRoot)
         return view
@@ -78,7 +87,14 @@ class AddEventFragment : Fragment() {
         val addEventScreen=Scene.getSceneForLayout(rSceneRoot as ViewGroup?, R.layout.layout_add_event_guardian, requireContext())
         addEventScreen.enter()
         val btnAddEvent= rSceneRoot.findViewById<Button>(R.id.btn_add_event)
-        btnAddEvent.setOnClickListener { viewModel.setEventAction(EventAction.add_event_action) }
+        btnAddEvent.setOnClickListener {
+            viewModel.putValue(AddEventViewModel.EVENT_NAME, edtEventName.text.toString())
+            viewModel.putValue(AddEventViewModel.START_TIME, edtStartTime.text.toString())
+            viewModel.putValue(AddEventViewModel.SELECT_DAYS, edtSelectDays.text.toString())
+            viewModel.putValue(AddEventViewModel.SET_FREQUENCY, edtSetFrequency.text.toString())
+            viewModel.putValue(AddEventViewModel.END_TIME, edtEndTime.text.toString())
+            viewModel.setEventAction(EventAction.add_event_action)
+        }
     }
 
     fun sucessSceneConfiguration(){
