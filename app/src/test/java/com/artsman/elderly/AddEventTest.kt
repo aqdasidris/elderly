@@ -7,6 +7,7 @@ import com.artsman.elderly.auth.RegistrationData
 import com.artsman.elderly.events.AddEvent
 import com.artsman.elderly.events.AddEventViewModel
 import com.artsman.elderly.events.EventAction
+import com.artsman.elderly.events.EventDataRepository
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -23,6 +24,8 @@ internal class AddEventTest {
 
     lateinit var viewModel: AddEventViewModel
 
+    lateinit var mockRepo: EventDataRepository
+
     @BeforeEach
     fun setup(){
         MockitoAnnotations.initMocks(this)
@@ -30,7 +33,7 @@ internal class AddEventTest {
     }
     @Test
     fun `add event`(){
-        viewModel=AddEventViewModel()
+
 
         viewModel.setEventState().observeForever(mockObserver)
 
@@ -39,7 +42,7 @@ internal class AddEventTest {
 
     @Test
     fun `add success screen after add event action`(){
-        viewModel= AddEventViewModel()
+
         viewModel.setEventState().observeForever(mockObserver)
         viewModel.setEventAction(EventAction.add_event_action)
         Mockito.verify(mockObserver).onChanged(AddEvent.success_state)

@@ -1,0 +1,19 @@
+{
+  "id":"1293730",
+  "guardian_code":"4xyo20",
+  "guardian_info":{
+    "name":"Aqdas Idris",
+    "contact_number":"8828151521",
+    "email":"aqdas.idris@gmail.com",
+    "address":{
+      "line_1":"1202, ahmed tower",
+      "line_2":"madhav rao gagan road",
+      "district":"Byculla",
+      "City":"Mumbai",
+      "pincode":"400011"
+    }
+  },
+  "patient_id":"12456"
+  
+  
+}
