@@ -88,13 +88,33 @@ class PatientInfoFragment : Fragment() {
             val patientBioScene=Scene(it, binding.root as ViewGroup)
             patientBioScene.enter()
             binding.info=data
-
-        }
+            val medicalConditions=data.bio.medical_conditions
+            binding.textView9.text=printArray(medicalConditions, separator = " | ")
+       }
 
     }
 
+    private fun printArray(medicalConditions: List<String>, separator:String=", "): String {
+        /*var a = ""
+        for (s in 0..medicalConditions.size - 1) {
+            a += medicalConditions[s]
+            if (s != medicalConditions.size - 1) {
+                a += " | "
+            }
+        }*/
+        var a=""
+        var position=0
+        while(position<medicalConditions.size){
+            a+=medicalConditions[position]
+            if(position!=medicalConditions.size-1) {
+                a += separator
+            }
+            position++
+        }
+        return a //medicalConditions.joinToString(separator)
+    }
+
     private var patientInfoObserver = Observer<State> { s ->
-        Log.d("PatientInfo", "${s.toString()} ")
         when (s) {
 
             State.LoadingState -> {

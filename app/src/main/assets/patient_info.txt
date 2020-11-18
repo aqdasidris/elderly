@@ -29,7 +29,7 @@
     "bio":{
     "age":"30",
     "weight":"80kg",
-    "medical conditions":["obesity", "constipation"]
+    "medical_conditions":["obesity","diabetes","asthma"]
     },
     "address":{
       "line_1":"1202, ahmed tower",

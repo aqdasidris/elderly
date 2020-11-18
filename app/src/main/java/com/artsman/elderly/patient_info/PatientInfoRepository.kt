@@ -18,7 +18,7 @@ data class PatientInfo(
     val contact_info: Contact,
     val emergency_contact: List<EmergencyContact>,
     val bio: Bio,
-    val address: addressInfo,
+    val address: AddressInfo,
 )
 
 
@@ -34,9 +34,9 @@ data class EmergencyContact(val name: String, val mobile: String = "")
 data class Bio(
     val age: String,
     val weight: String,
-    val medical_condition: String
+    val medical_conditions: List<String>
 )
-data class addressInfo(
+data class AddressInfo(
     val line1: String="",
     val line2: String="",
     val district: String="",
