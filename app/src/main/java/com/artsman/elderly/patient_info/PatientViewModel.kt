@@ -11,8 +11,7 @@ class PatientViewModel(val patientRepo: PatientInfoRepository){
     fun setAction(action: PAction){
         mCurrentState.postValue(State.LoadingState)
         val data: PatientInfo = patientRepo.fetchPatient()
-        mCurrentState.postValue(State.LoadedStateData(data))
-        mCurrentState.postValue(State.LoadedState)
+        mCurrentState.postValue(State.LoadedState(data))
     }
 
 
@@ -24,8 +23,7 @@ sealed class State{
 
 
    object LoadingState: State()
-    object LoadedState:State()
-    data class LoadedStateData(val data: PatientInfo): State()
+    data class LoadedState(val data: PatientInfo): State()
 
 
 

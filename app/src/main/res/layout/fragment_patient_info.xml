@@ -1,20 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/pSceneRootPatient"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".patient_info.PatientInfoFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
+    <data>
 
-    <ProgressBar
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:id="@+id/progress_bar"
-        android:layout_gravity="center"
-        android:visibility="visible" />
+    </data>
+
+    <FrameLayout
+        android:id="@+id/pSceneRootPatient"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".patient_info.PatientInfoFragment">
+
+        <!-- TODO: Update blank fragment layout -->
+        <!-- TODO: Update blank fragment layout -->
+        <FrameLayout
+            android:id="@+id/sceneRoot"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/progress_bar"
+            android:layout_gravity="center"
+            android:visibility="visible" />
 
 
-</FrameLayout>
+    </FrameLayout>
+</layout>
