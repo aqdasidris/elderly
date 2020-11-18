@@ -17,9 +17,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.artsman.elderly.*
 import com.artsman.elderly.Action.*
+import com.artsman.elderly.patient_info.PateintInfoActivity
 import com.artsman.elderly.data.AppPreference
 import com.artsman.elderly.data.IPreferenceHelper
-import com.artsman.elderly.events.EventActivity
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -157,7 +157,7 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
             viewModel.putValue(ElderlyViewModel.SETPASSWORD, edtSetPassword.text.toString())
             viewModel.putValue(ElderlyViewModel.CONFIRMPASSWORD, edtConfirmPassword.text.toString())
             viewModel.setAction(log_in_action)
-            startEvent()
+            startPatientBio()
         }
     }
     fun configurePatientLogin(){
@@ -223,8 +223,8 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
     }
 
 
-    private fun startEvent(){
-        val intent=Intent(requireActivity(), EventActivity::class.java)
+    private fun startPatientBio(){
+        val intent=Intent(requireActivity(), PateintInfoActivity::class.java)
         startActivity(intent)
     }
     override fun fragmentBackPress(): Boolean {

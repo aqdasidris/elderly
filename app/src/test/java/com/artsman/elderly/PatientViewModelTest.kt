@@ -1,13 +1,13 @@
 package com.artsman.elderly
 
+import com.artsman.elderly.patient_info.*
 import androidx.lifecycle.Observer
+import com.google.gson.Gson
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mock
 import org.mockito.Mockito
-import org.mockito.Mockito.atLeastOnce
-import org.mockito.Mockito.times
 import org.mockito.MockitoAnnotations
 
 @ExtendWith(InstantExecutorExtension::class)
@@ -39,12 +39,13 @@ internal class PatientViewModelTest {
 
     @Test
     fun `Data should be loaded from repository`() {
-        Mockito.`when`(mockRepo.fetchPatient()).thenReturn(sample_data)
+        val objData=getSampleDataObject()
+        Mockito.`when`(mockRepo.fetchPatient()).thenReturn(objData)
         viewModel.getState().observeForever(mockObserver)
         viewModel.setAction(PAction.start_action)
         Mockito.verify(mockObserver).onChanged(State.LoadingState)
         Mockito.verify(mockRepo).fetchPatient()
-        Mockito.verify(mockObserver).onChanged(State.LoadedState(sample_data))
+        Mockito.verify(mockObserver).onChanged(State.LoadedState(objData))
     }
 
 
@@ -87,7 +88,7 @@ val sample_data="""{
     "age":"30",
     "weight":"80kg",
     "medical conditions":["obesity", "constipation"]
-    },
+    },  
     "address":{
       "line_1":"1202, ahmed tower",
       "line_2":"madhav rao gagan marg",
@@ -98,4 +99,12 @@ val sample_data="""{
     "Guardian_code":"4xy2ow"
 }
 """
+
+    fun getSampleDataObject(): PatientInfo {
+        val gson=Gson()
+        val data=gson.fromJson(sample_data, PatientInfo::class.java)
+        return data
+    }
+
+
 }
