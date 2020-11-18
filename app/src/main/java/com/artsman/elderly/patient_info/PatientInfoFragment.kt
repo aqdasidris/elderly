@@ -90,6 +90,7 @@ class PatientInfoFragment : Fragment() {
             binding.info=data
             val medicalConditions=data.bio.medical_conditions
             binding.textView9.text=printArray(medicalConditions, separator = " | ")
+            Log.d("towordcase","aqdas idris".toWordCase())
        }
 
     }
@@ -126,7 +127,15 @@ class PatientInfoFragment : Fragment() {
             }
         }
     }
-
+    private fun String.toWordCase():String{
+       var result=""
+        var split=this.split(" ")
+        for(s in 0..split.size-1){
+            result+=split[s].capitalize()
+            result+=" "
+        }
+        return result
+    }
 
 }
 
