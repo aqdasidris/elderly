@@ -2,11 +2,11 @@
   "id" : "12456",
   "name": "owais idris",
   "contact_info": {
-    "Mobile_Number": "9870792198",
+    "mobile_number": "9870792198",
     "email": "owaistnt@gmail.com",
     "landline_number":"23016368"
   },
-  "Emergency_Contacts":[
+  "emergency_contacts":[
       {
         "name": "Aqdas Idris",
         "contact_number":"8828151521"
@@ -26,7 +26,7 @@
         
     }
     ],
-    "Bio":{
+    "bio":{
     "age":"30",
     "weight":"80kg",
     "medical conditions":["obesity", "constipation"]
@@ -38,5 +38,5 @@
       "district":"byculla (w)",
       "pincode": "400011"
     },
-    "Guardian_code":"4xy2ow"
+    "guardian_code":"4xy2ow"
 }

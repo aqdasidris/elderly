@@ -8,11 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.artsman.elderly.patient_info.State.LoadedState
 import com.artsman.elderly.R
 import com.artsman.elderly.databinding.FragmentPatientInfoBinding
+import com.artsman.elderly.databinding.PatientBioLayoutBinding
 import kotlinx.android.synthetic.main.fragment_patient_info.*
+import kotlinx.android.synthetic.main.patient_bio_layout.view.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -81,13 +84,10 @@ class PatientInfoFragment : Fragment() {
 
     fun loadeddState(data: PatientInfo) {
         mBinding?.sceneRoot?.let {
-            val patientBio = Scene.getSceneForLayout(
-                it as ViewGroup?,
-                R.layout.patient_bio_layout,
-                requireContext()
-            )
-            patientBio.enter()
-            patientBio.sceneRoot.findViewById<TextView>(R.id.txtName).text=data.name
+            val binding=PatientBioLayoutBinding.inflate(layoutInflater)
+            val patientBioScene=Scene(it, binding.root as ViewGroup)
+            patientBioScene.enter()
+            binding.info=data
 
         }
 
