@@ -37,8 +37,8 @@ data class Bio(
     val medical_conditions: List<String>
 )
 data class AddressInfo(
-    val line1: String="",
-    val line2: String="",
+    val line_1: String="",
+    val line_2: String="",
     val district: String="",
     val city: String="",
     val pincode: String=""

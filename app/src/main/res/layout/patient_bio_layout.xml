@@ -38,16 +38,6 @@
             app:layout_constraintTop_toBottomOf="@+id/txtLine1"
             tools:text="59 years" />
 
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            app:layout_constraintStart_toStartOf="@+id/edtAge"
-            app:layout_constraintTop_toBottomOf="@+id/edtAge"
-            tools:text="Diabetic" />
-
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="108dp"
@@ -64,13 +54,64 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="@{info.contact_info.mobile_number}"
             android:drawableEnd="@drawable/ic_baseline_call_14"
             android:drawablePadding="6dp"
+            android:text="@{info.contact_info.mobile_number}"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            app:layout_constraintStart_toStartOf="@+id/textView9"
-            app:layout_constraintTop_toBottomOf="@+id/textView9"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+            app:layout_constraintEnd_toEndOf="@+id/txtLine1"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/txtLine1"
+            app:layout_constraintTop_toBottomOf="@+id/edtAge"
+            app:layout_constraintVertical_bias="0.38"
             tools:text="9870792198" />
+
+        <TextView
+            android:id="@+id/txtMedCon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:text="Medical Condtions"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:layout_constraintEnd_toEndOf="@+id/imageView2"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/imageView2"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+        <TextView
+            android:id="@+id/txtLsMedCon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            app:layout_constraintEnd_toEndOf="@+id/txtMedCon"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/txtMedCon"
+            app:layout_constraintTop_toBottomOf="@+id/txtMedCon"
+            tools:text="obesity,  diabetes, anxiety" />
+
+        <TextView
+            android:id="@+id/txtAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="52dp"
+            android:text="Residential Information"
+            app:layout_constraintEnd_toEndOf="@+id/txtMedCon"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/txtMedCon"
+            app:layout_constraintTop_toBottomOf="@+id/txtMedCon" />
+
+        <TextView
+            android:id="@+id/txt_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            app:layout_constraintEnd_toEndOf="@+id/txtAdd"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/txtAdd"
+            app:layout_constraintTop_toBottomOf="@+id/txtAdd"
+            tools:text="1202, ahmed tower,madhavroa gagan road, agripada, byculla, mumbai 400001 " />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

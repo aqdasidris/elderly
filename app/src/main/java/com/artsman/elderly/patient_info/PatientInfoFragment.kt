@@ -1,21 +1,18 @@
 package com.artsman.elderly.patient_info
 
 import android.os.Bundle
+import android.text.SpannableStringBuilder
 import android.transition.Scene
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.artsman.elderly.patient_info.State.LoadedState
-import com.artsman.elderly.R
 import com.artsman.elderly.databinding.FragmentPatientInfoBinding
 import com.artsman.elderly.databinding.PatientBioLayoutBinding
 import kotlinx.android.synthetic.main.fragment_patient_info.*
-import kotlinx.android.synthetic.main.patient_bio_layout.view.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -89,9 +86,11 @@ class PatientInfoFragment : Fragment() {
             patientBioScene.enter()
             binding.info=data
             val medicalConditions=data.bio.medical_conditions
-            binding.textView9.text=printArray(medicalConditions, separator = " | ")
+            binding.txtLsMedCon.text=printArray(medicalConditions, separator = " | ")
             Log.d("towordcase","aqdas idris".toWordCase())
-       }
+            binding.txtAddress.text=addBuilder(data.address).toWordCase()
+
+            }
 
     }
 
@@ -135,6 +134,14 @@ class PatientInfoFragment : Fragment() {
             result+=" "
         }
         return result
+    }
+
+    private fun addBuilder(addressInfo: AddressInfo): String {
+      return """${addressInfo.line_1},
+          |${addressInfo.line_2.toWordCase()},
+          |${addressInfo.district.toWordCase()}, ${addressInfo.city.toWordCase()},
+          |${addressInfo.pincode}
+      """.trimMargin()
     }
 
 }
