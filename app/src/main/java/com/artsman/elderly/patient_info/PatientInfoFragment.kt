@@ -144,6 +144,8 @@ class PatientInfoFragment : Fragment() {
       """.trimMargin()
     }
 
+
+
 }
 
 
