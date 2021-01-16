@@ -1,11 +1,12 @@
 package com.artsman.elderly.patient_info
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import com.google.gson.Gson
 
 interface PatientInfoRepository {
     fun fetchPatient(): PatientInfo
-
+    fun getPatientList(): List<PatientItem>
 
 }
 
@@ -44,15 +45,30 @@ data class AddressInfo(
     val pincode: String=""
 )
 
+data class PatientItem(val id: String, val name: String, val photoUrl: String)
+
 
 //fake Repository getting data from assets
 
 class AssetPatientRepository(val context:Context): PatientInfoRepository {
     override fun fetchPatient(): PatientInfo {
         val read=readFromAsset()
-        val gson= Gson()
-        val dataObj=gson.fromJson(read, PatientInfo::class.java)
+        val dataObj = parseData(read)
         return dataObj
+    }
+
+    private fun parseData(read: String): PatientInfo {
+        val gson = Gson()
+        val dataObj = gson.fromJson(read, PatientInfo::class.java)
+        return dataObj
+    }
+
+    override fun getPatientList(): List<PatientItem> {
+        val data= parseData(readFromAsset())
+        val list = listOf<PatientInfo>(data, data, data).map {
+            PatientItem(it.id, it.name, "url")
+        }
+        return list;
     }
 
     private fun readFromAsset(): String{

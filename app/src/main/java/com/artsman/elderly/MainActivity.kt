@@ -7,6 +7,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.artsman.elderly.auth.GuardianRegistrationFragment
 import com.artsman.elderly.auth.ICanHandleBackPress
+import com.artsman.elderly.care_taker.PatientListFragment
 import com.artsman.elderly.events.EventActivity
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -35,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         supportFragmentManager.beginTransaction().replace(
             R.id.placeholder,
-            GuardianRegistrationFragment()
+            PatientListFragment()
         ).commit()
     }
 
