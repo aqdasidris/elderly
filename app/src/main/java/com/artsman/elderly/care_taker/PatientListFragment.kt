@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.artsman.elderly.R
@@ -50,10 +51,7 @@ class PatientListFragment : Fragment() {
         viewModel.subscribe().observe(requireActivity(), Observer {
             when(it){
                 is PatientListViewModel.States.Loaded -> {
-                    val tempItems= it.items.map { v->
-                        v.name
-                    }
-                    mAdapter.setData(tempItems)
+                    mAdapter.setData(it.items)
                 }
                 PatientListViewModel.States.Loading -> showToast("Loading...")
             }
