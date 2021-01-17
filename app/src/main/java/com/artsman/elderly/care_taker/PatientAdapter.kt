@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.artsman.elderly.R
 import com.artsman.elderly.patient_info.PatientItem
+import java.util.*
 
 class PatientAdapter : RecyclerView.Adapter<PatientAdapter.PatientItemViewHolder>() {
 
@@ -38,7 +39,7 @@ class PatientAdapter : RecyclerView.Adapter<PatientAdapter.PatientItemViewHolder
         private var imgAvatar: ImageView = itemView.findViewById<ImageView>(R.id.img_avatar)
 
         fun bind(data: PatientItem){
-            txtName.text = data.name
+            txtName.text = data.name.capitalize(Locale.getDefault())
             imgAvatar.setImageResource(R.drawable.ic_launcher_background)
         }
 

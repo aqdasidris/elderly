@@ -1,14 +1,14 @@
 package com.artsman.elderly.care_taker
 
 import android.os.Bundle
+import android.util.Log
+import android.util.Log.*
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.artsman.elderly.R
@@ -19,15 +19,15 @@ import com.artsman.elderly.patient_info.PatientInfoRepository
 class PatientListFragment : Fragment() {
 
     lateinit var viewModel: PatientListViewModel
-    lateinit var repo: PatientInfoRepository
+    lateinit var repo: CareTakerEventRepository
     lateinit var rootView: View;
     lateinit var recyclerView: RecyclerView
-    lateinit var mAdapter: PatientAdapter
+    lateinit var mAdapter: EventAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        repo = AssetPatientRepository(requireContext())
+        repo = AssetCareTakerEventRepository(requireContext())
         viewModel= PatientListViewModel(repo)
-        mAdapter= PatientAdapter()
+        mAdapter= EventAdapter()
     }
 
     override fun onCreateView(
@@ -51,6 +51,7 @@ class PatientListFragment : Fragment() {
         viewModel.subscribe().observe(requireActivity(), Observer {
             when(it){
                 is PatientListViewModel.States.Loaded -> {
+                    d("DATA", "setData: ${it.items}")
                     mAdapter.setData(it.items)
                 }
                 PatientListViewModel.States.Loading -> showToast("Loading...")

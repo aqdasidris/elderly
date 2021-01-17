@@ -5,7 +5,6 @@ import com.artsman.elderly.InstantExecutorExtension
 import com.artsman.elderly.care_taker.PatientListViewModel.States
 import com.artsman.elderly.patient_info.PatientInfoRepository
 import com.artsman.elderly.patient_info.PatientItem
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
