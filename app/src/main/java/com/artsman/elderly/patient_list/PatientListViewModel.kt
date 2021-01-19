@@ -1,10 +1,11 @@
-package com.artsman.elderly.care_taker
+package com.artsman.elderly.patient_list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.artsman.elderly.patient_info.PatientInfoRepository
+import com.artsman.elderly.patient_info.PatientItem
 
-class PatientListViewModel(val repo:CareTakerEventRepository) {
+class PatientListViewModel(val repo: PatientInfoRepository) {
 
     private val mState = MutableLiveData<States>()
     fun subscribe(): LiveData<States> {
@@ -15,14 +16,14 @@ class PatientListViewModel(val repo:CareTakerEventRepository) {
         when (action) {
             Actions.Start -> {
                 mState.postValue(States.Loading)
-                mState.postValue(States.Loaded(repo.getEventList()))
+                mState.postValue(States.Loaded(repo.getPatientList()))
             }
         }
     }
 
 
     sealed class States {
-        data class Loaded(val items: List<Event>) : States()
+        data class Loaded(val items: List<PatientItem>) : States()
 
         object Loading : States()
     }

@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import com.artsman.elderly.patient_info.State.LoadedState
 import com.artsman.elderly.databinding.FragmentPatientInfoBinding
 import com.artsman.elderly.databinding.PatientBioLayoutBinding
+import com.artsman.elderly.patient_info.api.PatientInfoAPI
 import kotlinx.android.synthetic.main.fragment_patient_info.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -53,7 +54,7 @@ class PatientInfoFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = PatientViewModel(AssetPatientRepository(requireContext()))
+        viewModel = PatientViewModel(AssetPatientRepository(requireContext(), PatientInfoAPI()))
         viewModel.getState().observe(this, patientInfoObserver)
         viewModel.setAction(PAction.start_action)
     }

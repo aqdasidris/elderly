@@ -1,8 +1,7 @@
-package com.artsman.elderly.care_taker
+package com.artsman.elderly.patient_list
 
 import android.os.Bundle
 import android.util.Log
-import android.util.Log.*
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,36 +11,49 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.artsman.elderly.R
+import com.artsman.elderly.care_taker.EventAdapter
+import com.artsman.elderly.care_taker.EventListViewModel
 import com.artsman.elderly.patient_info.AssetPatientRepository
 import com.artsman.elderly.patient_info.PatientInfoRepository
+import com.artsman.elderly.patient_info.api.PatientInfoAPI
 
+// TODO: Rename parameter arguments, choose names that match
+// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM2 = "param2"
 
+/**
+ * A simple [Fragment] subclass.
+ * Use the [PatientListFragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
 class PatientListFragment : Fragment() {
-
     lateinit var viewModel: PatientListViewModel
-    lateinit var repo: CareTakerEventRepository
+    lateinit var repo: PatientInfoRepository
     lateinit var rootView: View;
     lateinit var recyclerView: RecyclerView
-    lateinit var mAdapter: EventAdapter
+    lateinit var mAdapter: PatientAdapter
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        repo = AssetCareTakerEventRepository(requireContext())
+        repo = AssetPatientRepository(requireContext(), PatientInfoAPI())
         viewModel= PatientListViewModel(repo)
-        mAdapter= EventAdapter()
+        mAdapter= PatientAdapter()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        rootView= inflater.inflate(R.layout.fragment_patient_list, container, false)
+        rootView=inflater.inflate(R.layout.fragment_list_patients, container, false)
         initialiseRecyclerView()
         return rootView
     }
 
     private fun initialiseRecyclerView() {
-        recyclerView= rootView.findViewById(R.id.list_patient)
+        recyclerView= rootView.findViewById(R.id.patient_list)
         recyclerView.layoutManager= LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         recyclerView.adapter= mAdapter
     }
@@ -51,7 +63,7 @@ class PatientListFragment : Fragment() {
         viewModel.subscribe().observe(requireActivity(), Observer {
             when(it){
                 is PatientListViewModel.States.Loaded -> {
-                    d("DATA", "setData: ${it.items}")
+                    Log.d("DATA", "setData: ${it.items}")
                     mAdapter.setData(it.items)
                 }
                 PatientListViewModel.States.Loading -> showToast("Loading...")
@@ -64,8 +76,17 @@ class PatientListFragment : Fragment() {
         rootView.findViewById<TextView>(R.id.text).setText(s)
     }
 
-    companion object {
 
+    companion object {
+        /**
+         * Use this factory method to create a new instance of
+         * this fragment using the provided parameters.
+         *
+         * @param param1 Parameter 1.
+         * @param param2 Parameter 2.
+         * @return A new instance of fragment PatientListFragment.
+         */
+        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             PatientListFragment().apply {
@@ -73,13 +94,3 @@ class PatientListFragment : Fragment() {
             }
     }
 }
-
-/*
-Todo
-1. Declare RecyclerView in XML : Done
-2. Initialise RecyclerView in View Code : Done
-3. Create Adapter Class: Done
-3.1 Create ViewHolder in Adapter Class: Done
-4. Attach Adapter to RecyclerView: Done
-5. Set data: Done
-* */

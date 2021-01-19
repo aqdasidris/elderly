@@ -1,18 +1,12 @@
 package com.artsman.elderly
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import com.artsman.elderly.auth.GuardianRegistrationFragment
 import com.artsman.elderly.auth.ICanHandleBackPress
-import com.artsman.elderly.care_taker.PatientListFragment
-import com.artsman.elderly.events.EventActivity
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import java.io.EOFException
-import java.io.InputStream
+import com.artsman.elderly.care_taker.EventListFragment
+import com.artsman.elderly.patient_info.PatientInfoFragment
+import com.artsman.elderly.patient_list.PatientListFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         supportFragmentManager.beginTransaction().replace(
             R.id.placeholder,
-            PatientListFragment()
+            PatientInfoFragment()
         ).commit()
     }
 

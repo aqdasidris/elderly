@@ -1,6 +1,5 @@
 package com.artsman.elderly.care_taker
 
-import android.app.usage.UsageEvents
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.artsman.elderly.R
+import com.artsman.elderly.patient_info.PatientItem
 
 class EventAdapter:RecyclerView.Adapter<EventAdapter.EventItemViewHolder>() {
 
@@ -26,7 +26,7 @@ class EventAdapter:RecyclerView.Adapter<EventAdapter.EventItemViewHolder>() {
         return currentList.size
     }
 
-    fun setData(items:List<Event>){
+    fun setData(items: List<Event>){
         currentList=items
     }
 

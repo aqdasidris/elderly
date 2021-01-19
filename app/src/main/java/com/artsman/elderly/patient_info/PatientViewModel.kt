@@ -2,38 +2,44 @@ package com.artsman.elderly.patient_info
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
-class PatientViewModel(val patientRepo: PatientInfoRepository){
-    private var mCurrentState= MutableLiveData<State>()
+class PatientViewModel(val patientRepo: PatientInfoRepository) : ViewModel() {
+    private var mCurrentState = MutableLiveData<State>()
     fun getState(): LiveData<State> {
-       return mCurrentState
+        return mCurrentState
     }
-    fun setAction(action: PAction){
+
+    fun setAction(action: PAction) {
         mCurrentState.postValue(State.LoadingState)
-        val data: PatientInfo = patientRepo.fetchPatient()
-        mCurrentState.postValue(State.LoadedState(data))
+        GlobalScope.launch(Dispatchers.IO) {
+            val data=patientRepo.fetchPatientRemote()
+            data?.let {
+                GlobalScope.launch(Dispatchers.Main) {
+                    mCurrentState.postValue(State.LoadedState(it))
+                }
+
+            }
+        }
     }
 
 
-
-
 }
 
-sealed class State{
+sealed class State {
 
 
-   object LoadingState: State()
-    data class LoadedState(val data: PatientInfo): State()
-
-
-
-
+    object LoadingState : State()
+    data class LoadedState(val data: PatientInfo) : State()
 
 
 }
 
 
-enum class PAction{
+enum class PAction {
     start_action,
 
 
