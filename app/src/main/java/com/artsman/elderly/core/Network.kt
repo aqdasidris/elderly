@@ -8,6 +8,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 const val BASE_URL= "http://192.168.1.21:3000/"
+
+/***
+ * Todo This must be a singleton
+ */
 fun getRetrofitInstance(): Retrofit? {
     return Retrofit.Builder().apply {
         this.baseUrl(BASE_URL)

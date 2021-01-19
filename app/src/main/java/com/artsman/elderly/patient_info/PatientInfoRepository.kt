@@ -82,7 +82,7 @@ class AssetPatientRepository(val context: Context, val patientInfoAPI: PatientIn
         }else {
             Log.d("API", "Failed: ${response?.errorBody()}")
         }
-        return response?.body()
+        return response?.body()?.data
     }
 
     private fun readFromAsset(): String {
