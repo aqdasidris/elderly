@@ -28,6 +28,7 @@ class EventAdapter:RecyclerView.Adapter<EventAdapter.EventItemViewHolder>() {
 
     fun setData(items: List<EventInfo>){
         currentList=items
+        notifyDataSetChanged()
     }
 
     class EventItemViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
