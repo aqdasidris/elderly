@@ -11,7 +11,7 @@ import com.artsman.elderly.patient_info.PatientItem
 
 class EventAdapter:RecyclerView.Adapter<EventAdapter.EventItemViewHolder>() {
 
-    var currentList= listOf<Event>()
+    var currentList= listOf<EventInfo>()
     override fun onCreateViewHolder(parent: ViewGroup,viewType: Int): EventAdapter.EventItemViewHolder {
         val itemView=LayoutInflater.from(parent.context).inflate(R.layout.item_event_list,parent,false)
         return EventItemViewHolder(itemView)
@@ -26,7 +26,7 @@ class EventAdapter:RecyclerView.Adapter<EventAdapter.EventItemViewHolder>() {
         return currentList.size
     }
 
-    fun setData(items: List<Event>){
+    fun setData(items: List<EventInfo>){
         currentList=items
     }
 
@@ -36,7 +36,7 @@ class EventAdapter:RecyclerView.Adapter<EventAdapter.EventItemViewHolder>() {
         private var txtSteps:TextView=itemView.findViewById<TextView>(R.id.txtSteps)
         private var imgAvatar: ImageView? =itemView.findViewById<ImageView>(R.id.img_avatar)
 
-        fun bind(data:Event){
+        fun bind(data:EventInfo){
             txtEventName.text=data.title
             txtGoal.text=data.goal
             txtSteps.text=data.steps

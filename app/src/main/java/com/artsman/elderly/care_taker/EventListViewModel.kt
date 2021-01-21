@@ -2,26 +2,36 @@ package com.artsman.elderly.care_taker
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import com.artsman.elderly.GenericData
 
-class EventListViewModel(val repo:CareTakerEventRepository) {
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
-    private val mState = MutableLiveData<States>()
+class EventListViewModel(val repo:CareTakerEventRepository): ViewModel() {
+
+    private val mCurrentState = MutableLiveData<States>()
     fun subscribe(): LiveData<States> {
-        return mState
+        return mCurrentState
     }
 
     fun setAction(action: Actions) {
-        when (action) {
-            Actions.Start -> {
-                mState.postValue(States.Loading)
-                mState.postValue(States.Loaded(repo.getEventList()))
+        mCurrentState.postValue(States.Loading)
+        GlobalScope.launch(Dispatchers.IO) {
+            val data=repo.fetchEventRemote()
+            data?.let {
+                GlobalScope.launch(Dispatchers.Main) {
+                    mCurrentState.postValue(States.Loaded(it))
+                }
+
             }
         }
     }
 
 
     sealed class States {
-        data class Loaded(val items: List<Event>) : States()
+        data class Loaded(val items:List<EventInfo>) : States()
 
         object Loading : States()
     }
@@ -31,3 +41,5 @@ class EventListViewModel(val repo:CareTakerEventRepository) {
     }
 
 }
+
+

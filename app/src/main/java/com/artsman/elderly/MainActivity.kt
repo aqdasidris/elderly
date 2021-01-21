@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         supportFragmentManager.beginTransaction().replace(
             R.id.placeholder,
-            PatientInfoFragment()
+           EventListFragment()
         ).commit()
     }
 

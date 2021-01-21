@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.artsman.elderly.R
+import com.artsman.elderly.care_taker.api.EventListApi
 
 
 class EventListFragment : Fragment() {
@@ -22,7 +23,7 @@ class EventListFragment : Fragment() {
     lateinit var mAdapter: EventAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        repo = AssetCareTakerEventRepository(requireContext())
+        repo = AssetCareTakerEventRepository(requireContext(), EventListApi())
         viewModel= EventListViewModel(repo)
         mAdapter= EventAdapter()
     }
@@ -51,15 +52,15 @@ class EventListFragment : Fragment() {
                     d("DATA", "setData: ${it.items}")
                     mAdapter.setData(it.items)
                 }
-                EventListViewModel.States.Loading -> showToast("Loading...")
+                //EventListViewModel.States.Loading -> showToast("Loading...")
             }
         })
         viewModel.setAction(EventListViewModel.Actions.Start)
     }
 
-    private fun showToast(s: String) {
-        rootView.findViewById<TextView>(R.id.text).setText(s)
-    }
+//    private fun showToast(s: String) {
+//        rootView.findViewById<TextView>(R.id.text).setText(s)
+//    }
 
     companion object {
 
