@@ -1,0 +1,42 @@
+{
+  "id" : "12456",
+  "name": "owais idris",
+  "contact_info": {
+    "mobile_number": "9870792198",
+    "email": "owaistnt@gmail.com",
+    "landline_number":"23016368"
+  },
+  "emergency_contacts":[
+      {
+        "name": "Aqdas Idris",
+        "contact_number":"8828151521"
+    },
+    {
+        "name": "Anas Idris",
+        "contact_number":"7208101921"
+    },
+    {
+        "name": "Mohd Idris",
+        "contact_number":"9969376817"
+    },
+    {
+        "name": "Khaleda Idris",
+        "contact_number":"9869365398",
+        "contact_number_2":"913743538"
+        
+    }
+    ],
+    "bio":{
+    "age":"30",
+    "weight":"80kg",
+    "medical_conditions":["obesity","diabetes","asthma"]
+    },
+    "address":{
+      "line_1":"1202, ahmed tower",
+      "line_2":"madhav rao gagan marg",
+      "city":"mumbai",
+      "district":"byculla (w)",
+      "pincode": "400011"
+    },
+    "guardian_code":"4xy2ow"
+}

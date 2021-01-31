@@ -41,7 +41,7 @@ class EventAdapter:RecyclerView.Adapter<EventAdapter.EventItemViewHolder>() {
             txtEventName.text=data.title
             txtGoal.text=data.goal
             txtSteps.text=data.steps
-            imgAvatar?.setImageResource(R.drawable.ic_launcher_background)
+            //imgAvatar?.setImageResource(R.drawable.ic_launcher_background)
         }
 
     }

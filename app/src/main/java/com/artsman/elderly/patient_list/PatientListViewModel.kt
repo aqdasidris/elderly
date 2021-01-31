@@ -2,28 +2,38 @@ package com.artsman.elderly.patient_list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.artsman.elderly.patient_info.PatientInfoRepository
-import com.artsman.elderly.patient_info.PatientItem
+import androidx.lifecycle.ViewModel
+import com.artsman.elderly.care_taker.CareTakerEventRepository
+import com.artsman.elderly.care_taker.EventInfo
+import com.artsman.elderly.patient_info.PAction
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
-class PatientListViewModel(val repo: PatientInfoRepository) {
 
-    private val mState = MutableLiveData<States>()
+class PatientListViewModel(val repo: PatientListRepository): ViewModel() {
+
+    private val mCurrentState = MutableLiveData<States>()
     fun subscribe(): LiveData<States> {
-        return mState
+        return mCurrentState
     }
 
     fun setAction(action: Actions) {
-        when (action) {
-            Actions.Start -> {
-                mState.postValue(States.Loading)
-                mState.postValue(States.Loaded(repo.getPatientList()))
+        mCurrentState.postValue(States.Loading)
+        GlobalScope.launch(Dispatchers.IO) {
+            val data=repo.fetchPatientListRemote()
+            data?.let {
+                GlobalScope.launch(Dispatchers.Main) {
+                    mCurrentState.postValue(States.Loaded(it))
+                }
+
             }
         }
     }
 
 
     sealed class States {
-        data class Loaded(val items: List<PatientItem>) : States()
+        data class Loaded(val items:List<PatientListItem>) : States()
 
         object Loading : States()
     }

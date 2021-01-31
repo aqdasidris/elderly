@@ -18,7 +18,7 @@ class PatientInfoAPI(private val retrofit: Retrofit?= getRetrofitInstance()) {
 
 
     interface IPatientInfoAPI{
-        @GET("/sample/patient")
+        @GET("/sample/patientbio")
         fun getPatients(): Call<GenericData<PatientInfo>>
     }
 }

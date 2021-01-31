@@ -9,12 +9,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.artsman.elderly.R
 import com.artsman.elderly.patient_info.PatientItem
+import com.artsman.elderly.utils.PicassoCircleTransformation
+import com.squareup.picasso.Picasso
+import okhttp3.Cache.key
 import java.util.*
 
 class PatientAdapter : RecyclerView.Adapter<PatientAdapter.PatientItemViewHolder>() {
 
-
-    private var currentList= listOf<PatientItem>()
+    private var currentList= listOf<PatientListItem>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PatientItemViewHolder {
 
         val itemView = LayoutInflater.from(parent.context)
@@ -33,18 +35,23 @@ class PatientAdapter : RecyclerView.Adapter<PatientAdapter.PatientItemViewHolder
         return currentList.size
     }
 
-    fun setData(items: List<PatientItem>){
+    fun setData(items: List<PatientListItem>){
         currentList= items
+        notifyDataSetChanged()
     }
 
 
     class PatientItemViewHolder(val itemView: View): RecyclerView.ViewHolder(itemView){
         private var txtName: TextView = itemView.findViewById<TextView>(R.id.txtPatientName)
-        private var imgAvatar: ImageView = itemView.findViewById<ImageView>(R.id.img_avatar)
+        private var imgAvatar: ImageView = itemView.findViewById<ImageView>(R.id.img_avatar_patient)
 
-        fun bind(data: PatientItem){
+
+        fun bind(data: PatientListItem){
             txtName.text = data.name
-            imgAvatar.setImageResource(R.drawable.ic_launcher_background)
+
+            Picasso.get().load(data.photoUrl).transform(PicassoCircleTransformation()).into(imgAvatar)
+
+
         }
 
     }
