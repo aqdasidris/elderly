@@ -3,4 +3,16 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+
+
+
+
+    <color name="red_primaryColor">#ad1457</color>
+    <color name="red_primaryLightColor">#e35183</color>
+    <color name="red_primaryDarkColor">#78002e</color>
+    <color name="red_secondaryColor">#f06292</color>
+    <color name="red_secondaryLightColor">#ff94c2</color>
+    <color name="red_secondaryDarkColor">#ba2d65</color>
+    <color name="red_primaryTextColor">#ffffff</color>
+    <color name="red_secondaryTextColor">#000000</color>
 </resources>

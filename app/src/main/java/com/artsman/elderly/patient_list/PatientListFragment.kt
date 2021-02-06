@@ -1,11 +1,13 @@
 package com.artsman.elderly.patient_list
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,10 +15,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.artsman.elderly.R
 import com.artsman.elderly.care_taker.EventAdapter
 import com.artsman.elderly.care_taker.EventListViewModel
+import com.artsman.elderly.patient_activity_bio.PatientBioActivity
 import com.artsman.elderly.patient_info.AssetPatientRepository
 import com.artsman.elderly.patient_info.PatientInfoRepository
 import com.artsman.elderly.patient_info.api.PatientInfoAPI
 import com.artsman.elderly.patient_list.PatientListAPI.PatientListApi
+import kotlinx.android.synthetic.main.event_add_success.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -51,12 +55,19 @@ class PatientListFragment : Fragment() {
         rootView=inflater.inflate(R.layout.fragment_list_patients, container, false)
         initialiseRecyclerView()
         return rootView
+
     }
 
     private fun initialiseRecyclerView() {
         recyclerView= rootView.findViewById(R.id.patient_list)
         recyclerView.layoutManager= LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         recyclerView.adapter= mAdapter
+        mAdapter.setPatientClickListener(object : PatientAdapter.IPatientClickListener{
+            override fun onPatientClicked(item: PatientListItem) {
+                loadPatientBio(item)
+            }
+
+        })
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -68,8 +79,15 @@ class PatientListFragment : Fragment() {
                     mAdapter.setData(it.items)
                 }
             }
-        })
+        }
+
+        )
         viewModel.setAction(PatientListViewModel.Actions.Start)
+
+    }
+    fun loadPatientBio(data: PatientListItem){
+        val intent=Intent(requireActivity(),PatientBioActivity::class.java)
+        startActivity(intent)
     }
 
 

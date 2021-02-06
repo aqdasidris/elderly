@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.artsman.elderly.auth.ICanHandleBackPress
 import com.artsman.elderly.care_taker.EventListFragment
 import com.artsman.elderly.patient_info.PatientInfoFragment
+import com.artsman.elderly.patient_list.PatientAdapter
 import com.artsman.elderly.patient_list.PatientListFragment
 
 class MainActivity : AppCompatActivity() {
