@@ -5,6 +5,9 @@
         <item name="colorPrimary">@color/red_primaryColor</item>
         <item name="colorPrimaryDark">@color/red_primaryDarkColor</item>
         <item name="colorAccent">@color/red_secondaryColor</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearanceOverlay.App.MediumComponents</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearanceOverlay.App.SmallComponents</item>
+        <item name="materialCardViewStyle">@style/Widget.App.Card</item>
     </style>
 
 
@@ -14,6 +17,11 @@
         <item name="colorAccent">@color/red_secondaryColor</item>
         <item name="colorSurface">@color/red_primaryColor</item>
         <item name="colorOnSurface">@color/red_primaryTextColor</item>
+    </style>
+
+
+    <style name="Widget.App.Card" parent="Widget.MaterialComponents.CardView">
+        <item name="cardElevation">6dp</item>
     </style>
 
 </resources>

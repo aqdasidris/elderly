@@ -15,4 +15,5 @@
     <color name="red_secondaryDarkColor">#ba2d65</color>
     <color name="red_primaryTextColor">#ffffff</color>
     <color name="red_secondaryTextColor">#000000</color>
+    <color name="amber_50">#fff8e1</color>
 </resources>
