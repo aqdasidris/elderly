@@ -20,6 +20,7 @@ import com.artsman.elderly.Action.*
 import com.artsman.elderly.patient_info.PateintInfoActivity
 import com.artsman.elderly.data.AppPreference
 import com.artsman.elderly.data.IPreferenceHelper
+import com.artsman.elderly.patient_list.PatientListFragment
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -224,8 +225,12 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
 
 
     private fun startPatientBio(){
-        val intent=Intent(requireActivity(), PateintInfoActivity::class.java)
-        startActivity(intent)
+//        val intent=Intent(requireActivity(), PatientListFragment::class.java)
+//        startActivity(intent)
+        val fragmentManager=getFragmentManager()
+        val fragmentTransaction=fragmentManager?.beginTransaction()
+        fragmentTransaction?.replace(R.id.sceneRoot,  PatientListFragment())
+        fragmentTransaction?.commit()
     }
     override fun fragmentBackPress(): Boolean {
         viewModel.setAction(Action.back_action)

@@ -3,6 +3,7 @@ package com.artsman.elderly
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.artsman.elderly.auth.GuardianRegistrationFragment
 import com.artsman.elderly.auth.ICanHandleBackPress
 import com.artsman.elderly.care_taker.EventListFragment
 import com.artsman.elderly.patient_info.PatientInfoFragment
@@ -31,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         supportFragmentManager.beginTransaction().replace(
             R.id.placeholder,
-            PatientListFragment()
+            GuardianRegistrationFragment()
         ).commit()
     }
 

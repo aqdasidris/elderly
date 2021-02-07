@@ -19,7 +19,7 @@ class PatientBioActivity : AppCompatActivity() {
         setContentView(R.layout.activity_patient_bio)
         val tb= findViewById<Toolbar>(R.id.main_toolbar)
         setSupportActionBar(tb)
-        supportActionBar?.title = "Owais Idris"
+        supportActionBar?.title = ""
         supportActionBar?.setDisplayShowTitleEnabled(true)
 
 

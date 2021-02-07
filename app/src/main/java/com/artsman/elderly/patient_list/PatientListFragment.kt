@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.artsman.elderly.R
@@ -60,7 +61,7 @@ class PatientListFragment : Fragment() {
 
     private fun initialiseRecyclerView() {
         recyclerView= rootView.findViewById(R.id.patient_list)
-        recyclerView.layoutManager= LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        recyclerView.layoutManager= GridLayoutManager(requireContext(), 3)
         recyclerView.adapter= mAdapter
         mAdapter.setPatientClickListener(object : PatientAdapter.IPatientClickListener{
             override fun onPatientClicked(item: PatientListItem) {
