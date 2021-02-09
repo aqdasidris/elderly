@@ -9,109 +9,129 @@
             type="com.artsman.elderly.patient_info.PatientInfo" />
     </data>
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".patient_info.PatientInfoFragment">
 
-
-        <TextView
-            android:id="@+id/txtLine1"
-            android:layout_width="wrap_content"
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@{info.name}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            app:layout_constraintStart_toEndOf="@+id/imageView2"
-            app:layout_constraintTop_toTopOf="@+id/imageView2"
-            tools:text="Owais Idris" />
-
-        <TextView
-            android:id="@+id/edtAge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:inputType="textPersonName"
-            android:text='@{info.bio.age+ " years, "+ info.bio.weight}'
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            app:layout_constraintStart_toStartOf="@+id/txtLine1"
-            app:layout_constraintTop_toBottomOf="@+id/txtLine1"
-            tools:text="59 years" />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="108dp"
-            android:layout_height="101dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="32dp"
-            android:src="@mipmap/ic_launcher"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="16dp"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:drawableEnd="@drawable/ic_baseline_call_14"
-            android:drawablePadding="6dp"
-            android:text="@{info.contact_info.mobile_number}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-            app:layout_constraintEnd_toEndOf="@+id/txtLine1"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/txtLine1"
-            app:layout_constraintTop_toBottomOf="@+id/edtAge"
-            app:layout_constraintVertical_bias="0.38"
-            tools:text="9870792198" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/txtMedCon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
-            android:text="Medical Condtions"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            app:layout_constraintEnd_toEndOf="@+id/imageView2"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/imageView2"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+                <TextView
+                    android:id="@+id/txtLine1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@{info.name}"
+                    style="?attr/textAppearanceHeadline4"
+                    app:layout_constraintStart_toEndOf="@+id/imageView2"
+                    app:layout_constraintTop_toTopOf="@+id/imageView2"
+                    tools:text="Owais Idris" />
 
-        <TextView
-            android:id="@+id/txtLsMedCon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            app:layout_constraintEnd_toEndOf="@+id/txtMedCon"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/txtMedCon"
-            app:layout_constraintTop_toBottomOf="@+id/txtMedCon"
-            tools:text="obesity,  diabetes, anxiety" />
+                <TextView
+                    android:id="@+id/edtAge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:inputType="textPersonName"
+                    android:text='@{info.bio.age+ " years, "+ info.bio.weight}'
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    app:layout_constraintStart_toStartOf="@+id/txtLine1"
+                    app:layout_constraintTop_toBottomOf="@+id/txtLine1"
+                    tools:text="59 years" />
 
-        <TextView
-            android:id="@+id/txtAdd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="52dp"
-            android:text="Residential Information"
-            app:layout_constraintEnd_toEndOf="@+id/txtMedCon"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/txtMedCon"
-            app:layout_constraintTop_toBottomOf="@+id/txtMedCon" />
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="108dp"
+                    android:layout_height="101dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="32dp"
+                    android:src="@mipmap/ic_launcher"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:srcCompat="@tools:sample/avatars" />
 
-        <TextView
-            android:id="@+id/txt_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            app:layout_constraintEnd_toEndOf="@+id/txtAdd"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/txtAdd"
-            app:layout_constraintTop_toBottomOf="@+id/txtAdd"
-            tools:text="1202, ahmed tower,madhavroa gagan road, agripada, byculla, mumbai 400001 " />
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:drawableEnd="@drawable/ic_baseline_call_14"
+                    android:drawablePadding="6dp"
+                    android:text="@{info.contact_info.mobile_number}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+                    app:layout_constraintEnd_toEndOf="@+id/txtLine1"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/txtLine1"
+                    app:layout_constraintTop_toBottomOf="@+id/edtAge"
+                    app:layout_constraintVertical_bias="0.38"
+                    tools:text="9870792198" />
+
+                <TextView
+                    android:id="@+id/txtMedCon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="36dp"
+                    android:text="Medical Condtions"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView2"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/imageView2"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+                <TextView
+                    android:id="@+id/txtLsMedCon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    app:layout_constraintEnd_toEndOf="@+id/txtMedCon"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/txtMedCon"
+                    app:layout_constraintTop_toBottomOf="@+id/txtMedCon"
+                    tools:text="obesity,  diabetes, anxiety" />
+
+                <TextView
+                    android:id="@+id/txtAdd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="52dp"
+                    android:text="Residential Information"
+                    app:layout_constraintEnd_toEndOf="@+id/txtMedCon"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/txtMedCon"
+                    app:layout_constraintTop_toBottomOf="@+id/txtMedCon" />
+
+                <TextView
+                    android:id="@+id/txt_address"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    style="?attr/textAppearanceSubtitle1"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintStart_toStartOf="@id/txtAdd"
+                    app:layout_constraintTop_toBottomOf="@+id/txtAdd"
+                    tools:text="1202, ahmed tower,madhavroa gagan road, agripada, byculla, mumbai 400001 " />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

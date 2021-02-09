@@ -6,7 +6,7 @@
         <item name="cornerFamilyBottomLeft">rounded</item>
         <item name="cornerFamilyBottomRight">rounded</item>
         <item name="cornerFamilyTopRight">rounded</item>
-
+        <item name="color">#ffffff</item>
         <item name="cornerSizeTopLeft">24dp</item>
         <item name="cornerSizeBottomLeft">12dp</item>
         <item name="cornerSizeBottomRight">12dp</item>

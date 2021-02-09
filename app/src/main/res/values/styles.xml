@@ -17,11 +17,18 @@
         <item name="colorAccent">@color/red_secondaryColor</item>
         <item name="colorSurface">@color/red_primaryColor</item>
         <item name="colorOnSurface">@color/red_primaryTextColor</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearanceOverlay.App.MediumComponents</item>
+        <item name="shapeAppearanceSmallComponent">@style/Widget.App.Card.Shallow</item>
+        <item name="materialCardViewStyle">@style/Widget.App.Card</item>
     </style>
 
 
     <style name="Widget.App.Card" parent="Widget.MaterialComponents.CardView">
         <item name="cardElevation">6dp</item>
+    </style>
+
+    <style name="Widget.App.Card.Shallow" parent="Widget.MaterialComponents.CardView">
+        <item name="cardElevation">4dp</item>
     </style>
 
 </resources>
