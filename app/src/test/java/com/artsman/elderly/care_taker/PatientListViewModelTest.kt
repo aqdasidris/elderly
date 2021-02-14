@@ -23,7 +23,7 @@ internal class EventListViewModelTest{
     lateinit var repo: CareTakerEventRepository
     lateinit var viewModel: EventListViewModel
 
-    val sampleItem= PatientItem(id = "id", name = "aqdas", photoUrl = "url")
+    val sampleItem= PatientItem( name = "aqdas", photoUrl = "url")
     @BeforeEach
     fun setup(){
         MockitoAnnotations.initMocks(this)

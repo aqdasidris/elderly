@@ -1,67 +1,91 @@
 package com.artsman.elderly
 
+import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.artsman.elderly.auth.GuardianCode
 import com.artsman.elderly.auth.IRegisterationRepository
 import com.artsman.elderly.auth.PatientData
 import com.artsman.elderly.auth.RegistrationData
+import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_SHORT
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
-class ElderlyViewModel(val repository: IRegisterationRepository){
+class ElderlyViewModel(val repository: IRegisterationRepository):ViewModel(){
     private var mCurrentStates= MutableLiveData<States>()
+
     fun getState(): LiveData <States> {
-        mCurrentStates.postValue(States.choose_user_state)
+        mCurrentStates.postValue(States.user_type_state)
         return mCurrentStates
 
     }
 
     fun setAction(action: Action) {
-         if(action== Action.guardian_button_action){
-             mCurrentStates.postValue(States.guardian_registration_name_email_state)
-         }
-        else if(action==Action.name_email_next_action){
-             mCurrentStates.postValue(States.adding_guardian_address_contact_state)
-         }
-        else if(action==Action.proceed_to_password_login_action){
-             mCurrentStates.postValue(States.guardian_login_state)
-             repository.saveRegistration(getRegistrationData())
-         }
-        else if(action==Action.patient_user_type_action){
-             mCurrentStates.postValue(States.patient_login_states)
+        when (action) {
+            Action.GuardianButtonAction -> {
+                mCurrentStates.postValue(States.guardian_registration_personal_info_state)
+            }
+            Action.NameEmailNextAction -> {
+                mCurrentStates.postValue(States.adding_guardian_contact_info_state)
+            }
+            is Action.LogIn -> {
+                GlobalScope.launch(Dispatchers.IO) {
+                    val data = repository.authUser(action.username, action.password)
+                    data?.let {
+                        GlobalScope.launch(Dispatchers.Main) {
+                            mCurrentStates.postValue(States.redirect_to_home_state)
+                        }
+                    } ?: mCurrentStates.postValue(States.signin_failed_state)
 
-         }
-        else if(action==Action.add_guardian_action){
-             mCurrentStates.postValue(States.add_guardian_state)
-             repository.getPatientMail(getPatientMail())
-         }
-         else if(action==Action.log_in_action){
-             repository.getGuardianCreds(getGuardianCreds())
-         }
-        else if(action==Action.done_action){
-             mCurrentStates.postValue(States.choose_user_state)
-             repository.getGuardianCode(getGuardianCode())
-         }
-        else if(action==Action.back_action){
-             if(mCurrentStates.value==States.guardian_registration_name_email_state){
-                 mCurrentStates.postValue(States.choose_user_state)
-             }
-             else if(mCurrentStates.value==States.adding_guardian_address_contact_state){
-                 mCurrentStates.postValue(States.guardian_registration_name_email_state)
-             }
-             else if(mCurrentStates.value==States.guardian_login_state){
-                 mCurrentStates.postValue(States.adding_guardian_address_contact_state)
-             }
-             else if(mCurrentStates.value==States.patient_login_states){
-                 mCurrentStates.postValue(States.choose_user_state)
-             }
-             else if(mCurrentStates.value==States.add_guardian_state){
-                 mCurrentStates.postValue(States.patient_login_states)
-             }
-             else if(mCurrentStates.value==States.choose_user_state){
-                 mCurrentStates.postValue(States.kill_state)
-             }
 
+                }
+            }
+            Action.LoginIntentAction->{
+                mCurrentStates.postValue(States.log_in_state)
+            }
+            Action.ProceedToPasswordLoginAction -> {
+                mCurrentStates.postValue(States.guardian_login_state)
+                repository.saveRegistration(getRegistrationData())
+            }
+            Action.PatientUserTypeAction -> {
+                mCurrentStates.postValue(States.patient_login_state)
+
+            }
+            Action.AddGuardianAction -> {
+                mCurrentStates.postValue(States.add_guardian_state)
+                repository.getPatientMail(getPatientMail())
+            }
+            Action.SignUpAction -> {
+                repository.getGuardianCreds(getGuardianCreds())
+            }
+            Action.DoneAction -> {
+                mCurrentStates.postValue(States.user_type_state)
+                repository.getGuardianCode(getGuardianCode())
+            }
+            Action.BackAction -> {
+                if(mCurrentStates.value==States.guardian_registration_personal_info_state){
+                    mCurrentStates.postValue(States.user_type_state)
+                }
+                if(mCurrentStates.value==States.log_in_state){
+                    mCurrentStates.postValue(States.guardian_registration_personal_info_state)
+                } else if(mCurrentStates.value==States.adding_guardian_contact_info_state){
+                    mCurrentStates.postValue(States.guardian_registration_personal_info_state)
+                } else if(mCurrentStates.value==States.guardian_login_state){
+                    mCurrentStates.postValue(States.adding_guardian_contact_info_state)
+                } else if(mCurrentStates.value==States.patient_login_state){
+                    mCurrentStates.postValue(States.user_type_state)
+                } else if(mCurrentStates.value==States.add_guardian_state){
+                    mCurrentStates.postValue(States.patient_login_state)
+                } else if(mCurrentStates.value==States.user_type_state){
+                    mCurrentStates.postValue(States.kill_state)
+                }
+
+            }
         }
     }
 
@@ -91,6 +115,7 @@ class ElderlyViewModel(val repository: IRegisterationRepository){
     private fun getPatientMail(): PatientData {
         return PatientData(mail = registrationMap["mail"]?: "")
     }
+    
 
 
 
@@ -107,24 +132,30 @@ class ElderlyViewModel(val repository: IRegisterationRepository){
     }
 }
 enum class States{
-    choose_user_state,
-    guardian_registration_name_email_state,
-    adding_guardian_address_contact_state,
+    user_type_state,
+    guardian_registration_personal_info_state,
+    adding_guardian_contact_info_state,
     guardian_login_state,
-    patient_login_states,
+    patient_login_state,
     add_guardian_state,
     kill_state,
-
+    log_in_state,
+    redirect_to_home_state,
+    signin_failed_state
 }
-enum class Action{
-    guardian_button_action,
-    name_email_next_action,
-    proceed_to_password_login_action,
-    patient_user_type_action,
-    add_guardian_action,
-    log_in_action,
-    back_action,
-    done_action,
+
+
+sealed class Action{
+    object GuardianButtonAction: Action()
+    object NameEmailNextAction: Action()
+    object ProceedToPasswordLoginAction: Action()
+    object PatientUserTypeAction: Action()
+    object AddGuardianAction: Action()
+    object SignUpAction: Action()
+    object BackAction: Action()
+    object DoneAction: Action()
+    object LoginIntentAction: Action()
+    data class LogIn(val username: String, val password: String): Action()
 
 
 

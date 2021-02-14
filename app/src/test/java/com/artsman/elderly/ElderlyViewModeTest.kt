@@ -33,53 +33,53 @@ internal class ElderlyViewModeTest {
     }
 
     @Test
-    fun `start and load choose user type screen`(){
+    fun `given start action it must load user type state`(){
 
 
         viewModel.getState().observeForever(mockObserver)
 
-        Mockito.verify(mockObserver).onChanged(States.choose_user_state)
-        //assertEquals(States.choose_user_state, viewModel.getState())
-        viewModel.setAction(Action.back_action)
+        Mockito.verify(mockObserver).onChanged(States.user_type_state)
+        //assertEquals(States.user_type_state, viewModel.getState())
+        viewModel.setAction(Action.BackAction)
         Mockito.verify(mockObserver).onChanged(States.kill_state)
         //assertEquals(States.kill_state, viewModel.getState())
     }
 
     @Test
-    fun `choosing guardian option`(){
+    fun `given GuardianAction it must load personal info state and on back action must return to user type state `(){
 
         viewModel.getState().observeForever(mockObserver)
-        viewModel.setAction(Action.guardian_button_action)
-        Mockito.verify(mockObserver).onChanged(States.guardian_registration_name_email_state)
-        //assertEquals(States.guardian_registration_name_email_state, viewModel.getState())
-        viewModel.setAction(Action.back_action)
-        Mockito.verify(mockObserver, times(2)).onChanged(States.choose_user_state)
-        //assertEquals(States.choose_user_state, viewModel.getState())
+        viewModel.setAction(Action.GuardianButtonAction)
+        Mockito.verify(mockObserver).onChanged(States.guardian_registration_personal_info_state)
+        //assertEquals(States.guardian_registration_personal_info_state, viewModel.getState())
+        viewModel.setAction(Action.BackAction)
+        Mockito.verify(mockObserver, times(2)).onChanged(States.user_type_state)
+        //assertEquals(States.user_type_state, viewModel.getState())
     }
 
     @Test
-    fun `after filling name contact proceed to address screen`(){
+    fun `given action for name and email it must load contact info state`(){
 
         viewModel.getState().observeForever(mockObserver)
 
 
-        viewModel.setAction(Action.name_email_next_action)
+        viewModel.setAction(Action.NameEmailNextAction)
 
 
-        Mockito.verify(mockObserver).onChanged(States.adding_guardian_address_contact_state)
+        Mockito.verify(mockObserver).onChanged(States.adding_guardian_contact_info_state)
 
 
 
 
         //assertEquals(States.adding_guardian_address_contact_state, viewModel.getState())
-        viewModel.setAction(Action.back_action)
-        Mockito.verify(mockObserver).onChanged(States.guardian_registration_name_email_state)
-        //assertEquals(States.guardian_registration_name_email_state, viewModel.getState())
+        viewModel.setAction(Action.BackAction)
+        Mockito.verify(mockObserver).onChanged(States.guardian_registration_personal_info_state)
+        //assertEquals(States.guardian_registration_personal_info_state, viewModel.getState())
     }
 
 
     @Test
-    fun `after adding contact address proceed to set password and log`(){
+    fun `given contact information when proceed to signup action is performed then load guardian signup state`(){
         val registationObject= RegistrationData(name = "Aqdas", phone = "912345678" , address = "Ahmed Tower", email = "aqdas@gmail.com", pincode="400008")
         viewModel.getState().observeForever(mockObserver)
 
@@ -89,31 +89,25 @@ internal class ElderlyViewModeTest {
         viewModel.putValue("phone", "912345678")
         viewModel.putValue("pincode", "400008")
 
-        viewModel.setAction(Action.proceed_to_password_login_action)
+        viewModel.setAction(Action.ProceedToPasswordLoginAction)
 
         Mockito.verify(mockRepo, atLeastOnce()).saveRegistration(registationObject)
         Mockito.verify(mockObserver).onChanged(States.guardian_login_state)
         //assertEquals(States.guardian_login_state, viewModel.getState())
-        //assertEquals(States.choose_user_state, viewModel.getState())
+        //assertEquals(States.user_type_state, viewModel.getState())
     }
 
     @Test
     fun `choosing patient as user type`(){
 
         viewModel.getState().observeForever(mockObserver)
+        viewModel.setAction(Action.PatientUserTypeAction)
 
-
-        viewModel.setAction(Action.patient_user_type_action)
-
-
-
-
-
-        Mockito.verify(mockObserver).onChanged(States.patient_login_states)
-        //assertEquals(States.patient_login_states, viewModel.getState())
-        viewModel.setAction(Action.back_action)
-        Mockito.verify(mockObserver, times(2)).onChanged(States.choose_user_state)
-        //assertEquals(States.choose_user_state, viewModel.getState())
+        Mockito.verify(mockObserver).onChanged(States.patient_login_state)
+        //assertEquals(States.patient_login_state, viewModel.getState())
+        viewModel.setAction(Action.BackAction)
+        Mockito.verify(mockObserver, times(2)).onChanged(States.user_type_state)
+        //assertEquals(States.user_type_state, viewModel.getState())
     }
 
     @Test
@@ -125,12 +119,12 @@ internal class ElderlyViewModeTest {
         viewModel.putValue("mail", "aqdas.idris@gmail.com")
 
 
-        viewModel.setAction(Action.add_guardian_action)
+        viewModel.setAction(Action.AddGuardianAction)
         Mockito.verify(mockRepo, atLeastOnce()).getPatientMail(getPatientEmail)
         Mockito.verify(mockObserver).onChanged(States.add_guardian_state)
         //assertEquals(States.add_guardian_state, viewModel.getState())
 
-        //assertEquals(States.choose_user_state, viewModel.getState())
+        //assertEquals(States.user_type_state, viewModel.getState())
     }
 
     @Test
@@ -141,9 +135,9 @@ internal class ElderlyViewModeTest {
         viewModel.putValue("email","aqdas.idris@gmail.com")
         viewModel.putValue("setpassword","aqdas")
         viewModel.putValue("confirmpassword", "aqdas")
-        viewModel.setAction(Action.log_in_action)
+        viewModel.setAction(Action.SignUpAction)
         Mockito.verify(mockRepo, atLeastOnce()).getGuardianCreds(guardianLoginData)
-        Mockito.verify(mockObserver).onChanged(States.choose_user_state)
+        Mockito.verify(mockObserver).onChanged(States.user_type_state)
     }
 
     @Test
@@ -151,22 +145,32 @@ internal class ElderlyViewModeTest {
         val guardiandatacheck= GuardianCode(guardiancode = "123456")
         viewModel.getState().observeForever(mockObserver)
         viewModel.putValue("guardiancode", "123456")
-        viewModel.setAction(Action.done_action)
+        viewModel.setAction(Action.DoneAction)
         Mockito.verify(mockRepo, atLeastOnce()).getGuardianCode(guardiandatacheck)
-        Mockito.verify(mockObserver, times(2)).onChanged(States.choose_user_state)
+        Mockito.verify(mockObserver, times(2)).onChanged(States.user_type_state)
     }
 
     @Test
-    fun `itcangoback`(){
+    fun `test for back action`(){
 
         viewModel.getState().observeForever(mockObserver)
-        Mockito.verify(mockObserver).onChanged(States.choose_user_state)
-        viewModel.setAction(Action.guardian_button_action)
-        Mockito.verify(mockObserver).onChanged(States.guardian_registration_name_email_state)
-        viewModel.setAction(Action.back_action)
-        Mockito.verify(mockObserver, times(2)).onChanged(States.choose_user_state)
-        viewModel.setAction(Action.log_in_action)
-        Mockito.verify(mockObserver).onChanged(States.guardian_login_state)
+        Mockito.verify(mockObserver).onChanged(States.user_type_state)
+        viewModel.setAction(Action.GuardianButtonAction)
+        Mockito.verify(mockObserver).onChanged(States.guardian_registration_personal_info_state)
+        viewModel.setAction(Action.BackAction)
+        Mockito.verify(mockObserver, times(2)).onChanged(States.user_type_state)
+        viewModel.setAction(Action.LoginIntentAction)
+        Mockito.verify(mockObserver).onChanged(States.log_in_state)
+    }
+
+    @Test
+    fun `given action login intent it must load login state`(){
+        viewModel.getState().observeForever(mockObserver)
+        Mockito.verify(mockObserver).onChanged(States.user_type_state)
+        viewModel.setAction(Action.GuardianButtonAction)
+        Mockito.verify(mockObserver).onChanged(States.guardian_registration_personal_info_state)
+        viewModel.setAction(Action.LoginIntentAction)
+        Mockito.verify(mockObserver).onChanged(States.log_in_state)
     }
 }
 

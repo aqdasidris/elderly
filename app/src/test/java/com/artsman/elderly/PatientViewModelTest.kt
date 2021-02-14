@@ -29,22 +29,22 @@ internal class PatientViewModelTest {
     }
 
     @Test
-    fun `after start state load load state`() {
+    suspend fun `after start state load load state`() {
 
         viewModel.getState().observeForever(mockObserver)
         viewModel.setAction(PAction.start_action)
         Mockito.verify(mockObserver).onChanged(State.LoadingState)
-        Mockito.verify(mockRepo).fetchPatient()
+        Mockito.verify(mockRepo).fetchPatientRemote()
     }
 
     @Test
-    fun `Data should be loaded from repository`() {
+    suspend fun `Data should be loaded from repository`() {
         val objData=getSampleDataObject()
-        Mockito.`when`(mockRepo.fetchPatient()).thenReturn(objData)
+        Mockito.`when`(mockRepo.fetchPatientRemote()).thenReturn(objData)
         viewModel.getState().observeForever(mockObserver)
         viewModel.setAction(PAction.start_action)
         Mockito.verify(mockObserver).onChanged(State.LoadingState)
-        Mockito.verify(mockRepo).fetchPatient()
+        Mockito.verify(mockRepo).fetchPatientRemote()
         Mockito.verify(mockObserver).onChanged(State.LoadedState(objData))
     }
 

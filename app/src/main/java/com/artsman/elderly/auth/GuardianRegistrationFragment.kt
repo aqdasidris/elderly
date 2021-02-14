@@ -1,7 +1,6 @@
 package com.artsman.elderly.auth
 
 import android.content.Context
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -12,12 +11,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.artsman.elderly.*
 import com.artsman.elderly.Action.*
-import com.artsman.elderly.patient_info.PateintInfoActivity
+import com.artsman.elderly.auth.user_auth_api.UserAuthApi
 import com.artsman.elderly.data.AppPreference
 import com.artsman.elderly.data.IPreferenceHelper
 import com.artsman.elderly.patient_list.PatientListFragment
@@ -62,7 +62,7 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
         // Inflate the layout for this fragment
 
         val view=inflater.inflate(R.layout.fragment_guardian_registration, container, false)
-        viewModel= ElderlyViewModel(RegistrationRepo(getPrefHelper()))
+        viewModel= ElderlyViewModel(RegistrationRepo(getPrefHelper(), UserAuthApi()))
         viewModel.getState().observe(this, elderlyObserver)
         mSceneRoot=view.findViewById<View>(R.id.sceneRoot)
         return view
@@ -107,7 +107,11 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
         val btn_nxt=mSceneRoot.findViewById<Button>(R.id.btn_next)
         btn_nxt.setOnClickListener{
             viewModel.putValue(ElderlyViewModel.DATA_EMAIL, edtEmail.text.toString())
-            viewModel.setAction(name_email_next_action)
+            viewModel.setAction(NameEmailNextAction)
+        }
+        val btn_login=mSceneRoot.findViewById<Button>(R.id.btn_login)
+        btn_login.setOnClickListener {
+            viewModel.setAction(LoginIntentAction)
         }
 
         edtName.addTextChangedListener(object: TextWatcher{
@@ -139,7 +143,7 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
             viewModel.putValue(ElderlyViewModel.PHONE, edtContact.text.toString())
             viewModel.putValue(ElderlyViewModel.ADDRESS, edtAddress.text.toString())
             viewModel.putValue(ElderlyViewModel.PINCODE, edtPincode.text.toString())
-            viewModel.setAction(proceed_to_password_login_action)}
+            viewModel.setAction(ProceedToPasswordLoginAction)}
     }
     fun configureSetpasswordScreen(){
         val configuresetpassword=Scene.getSceneForLayout(
@@ -157,7 +161,7 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
             viewModel.putValue(ElderlyViewModel.DATA_EMAIL, edtUsername.text.toString())
             viewModel.putValue(ElderlyViewModel.SETPASSWORD, edtSetPassword.text.toString())
             viewModel.putValue(ElderlyViewModel.CONFIRMPASSWORD, edtConfirmPassword.text.toString())
-            viewModel.setAction(log_in_action)
+            viewModel.setAction(SignUpAction)
             startPatientBio()
         }
     }
@@ -172,7 +176,7 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
         val btn_patient_log_in=mSceneRoot.findViewById<Button>(R.id.btn_patient_log_in)
         btn_patient_log_in.setOnClickListener {
             viewModel.putValue(ElderlyViewModel.MAIL, edtPateintMail.text.toString())
-            viewModel.setAction(add_guardian_action)}
+            viewModel.setAction(AddGuardianAction)}
 
     }
     fun configureAddguardianScreen(){
@@ -183,7 +187,7 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
         val btn_add_gaurdian=mSceneRoot.findViewById<Button>(R.id.btn_add_gaurdian)
         btn_add_gaurdian.setOnClickListener {
             viewModel.putValue(ElderlyViewModel.GUARDIAN_CODE, edtGuardianCode.text.toString())
-            viewModel.setAction(Action.done_action) }
+            viewModel.setAction(Action.DoneAction) }
     }
     fun configureUserTypeScreen(){
         val chooseUserType=Scene.getSceneForLayout(
@@ -193,30 +197,40 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
         )
         chooseUserType.enter()
         val btn_choose_guardian=mSceneRoot.findViewById<Button>(R.id.btn_choose_guardian)
-        btn_choose_guardian.setOnClickListener { viewModel.setAction(guardian_button_action) }
+        btn_choose_guardian.setOnClickListener { viewModel.setAction(GuardianButtonAction) }
         val btn_choose_patient=mSceneRoot.findViewById<Button>(R.id.btn_choose_patient)
-        btn_choose_patient.setOnClickListener { viewModel.setAction(patient_user_type_action) }
+        btn_choose_patient.setOnClickListener { viewModel.setAction(PatientUserTypeAction) }
+    }
+    fun configureLoginScreen(){
+        val existingUSer=Scene.getSceneForLayout(mSceneRoot as ViewGroup?,R.layout.guardian_login,requireContext())
+        existingUSer.enter()
+
     }
 
+
     private fun setState(states: States){
-        if(states== States.choose_user_state){
+        if(states== States.user_type_state){
             configureUserTypeScreen()
         }
-        else if(states== States.guardian_registration_name_email_state){
+        else if(states== States.guardian_registration_personal_info_state){
             configureRegistrationNameEmailScreen()
         }
-        else if(states== States.adding_guardian_address_contact_state){
+        else if(states== States.adding_guardian_contact_info_state){
             configureRegistrationContactAddressScreen()
         }
         else if(states== States.guardian_login_state){
             configureSetpasswordScreen()
         }
-        else if(states== States.patient_login_states){
+        else if(states== States.patient_login_state){
             configurePatientLogin()
         }
         else if(states== States.add_guardian_state){
             configureAddguardianScreen()
         }
+        else if(states==States.log_in_state){
+            configureLoginScreen()
+        }
+
         else if(states== States.kill_state){
             activity?.finish()
         }
@@ -233,7 +247,7 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
         fragmentTransaction?.commit()
     }
     override fun fragmentBackPress(): Boolean {
-        viewModel.setAction(Action.back_action)
+        viewModel.setAction(Action.BackAction)
         return true;
     }
 

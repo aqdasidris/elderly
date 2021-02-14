@@ -1,0 +1,6 @@
+var data={
+    "username": "admin",
+    "password": "admin"
+}
+
+exports.result=data
