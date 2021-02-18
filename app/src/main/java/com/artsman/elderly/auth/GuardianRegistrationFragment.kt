@@ -6,11 +6,13 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.transition.Scene
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
@@ -113,7 +115,6 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
         btn_login.setOnClickListener {
             viewModel.setAction(LoginIntentAction)
         }
-
         edtName.addTextChangedListener(object: TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -145,6 +146,7 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
             viewModel.putValue(ElderlyViewModel.PINCODE, edtPincode.text.toString())
             viewModel.setAction(ProceedToPasswordLoginAction)}
     }
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
     fun configureSetpasswordScreen(){
         val configuresetpassword=Scene.getSceneForLayout(
             mSceneRoot as ViewGroup?,
@@ -201,10 +203,35 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
         val btn_choose_patient=mSceneRoot.findViewById<Button>(R.id.btn_choose_patient)
         btn_choose_patient.setOnClickListener { viewModel.setAction(PatientUserTypeAction) }
     }
+
+    private var mTxtUsername: EditText?= null
+    private var mTxtPassword: EditText?= null
     fun configureLoginScreen(){
         val existingUSer=Scene.getSceneForLayout(mSceneRoot as ViewGroup?,R.layout.guardian_login,requireContext())
         existingUSer.enter()
+        val loginbtn=mSceneRoot.findViewById<Button>(R.id.btn_login_auth)
 
+        mTxtUsername=mSceneRoot.findViewById<EditText>(R.id.edtEmail)
+        mTxtPassword=mSceneRoot.findViewById<EditText>(R.id.edtPassword)
+        loginbtn.setOnClickListener {
+            viewModel.setAction(LogIn("admin","admin"))
+        }
+        mTxtUsername?.addTextChangedListener(textWatcherUsername)
+    }
+
+    val textWatcherUsername= object: TextWatcher{
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            s?.let {
+                if(it.length<3){
+                    mTxtUsername?.setError("Need more characters")
+                    return
+                }
+            }
+        }
+
+        override fun afterTextChanged(s: Editable?) { }
     }
 
 
@@ -230,12 +257,20 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
         else if(states==States.log_in_state){
             configureLoginScreen()
         }
+        else if(states==States.redirect_to_home_state){
+            startPatientBio()
+        }
+        else if(states==States.signin_failed_state){
+            mTxtUsername?.setError("Invalid Username or Password")
+        }
 
         else if(states== States.kill_state){
             activity?.finish()
         }
 
     }
+
+
 
 
     private fun startPatientBio(){

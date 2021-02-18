@@ -11,7 +11,7 @@ import retrofit2.http.Query
 class UserAuthApi(private val retrofit: Retrofit? = getRetrofitInstance()) {
     val api=retrofit?.create(IUserAuthApi::class.java)
 
-    fun userAuth(username: String, password: String): Call<GenericData<AuthUser>>? {
+    fun userAuth(username: String, password: String): Call<AuthUser>? {
         return api?.userAuth(admin = username ?: "", password = password?: "")
     }
 
@@ -22,7 +22,7 @@ class UserAuthApi(private val retrofit: Retrofit? = getRetrofitInstance()) {
         @GET("/sample/authuser")
         fun userAuth(@Query("username")admin:String,
                      @Query("pass")password:String
-        ): Call<GenericData<AuthUser>>
+        ): Call<AuthUser>
     }
 }
 

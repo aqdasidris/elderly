@@ -46,9 +46,11 @@ class RegistrationRepo constructor(val preferenceHelper: IPreferenceHelper, val 
         try{
             val response = userAuthApi.userAuth(username, password)?.execute()
             response?.let {
-                if(it.isSuccessful) return it.body()?.data
+                if(it.isSuccessful) return it.body()
             }
-        }catch (e: IOException){}
+        }catch (e: IOException){
+            print(e.message)
+        }
         return null
     }
 

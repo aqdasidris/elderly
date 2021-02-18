@@ -36,13 +36,11 @@ class ElderlyViewModel(val repository: IRegisterationRepository):ViewModel(){
             is Action.LogIn -> {
                 GlobalScope.launch(Dispatchers.IO) {
                     val data = repository.authUser(action.username, action.password)
-                    data?.let {
-                        GlobalScope.launch(Dispatchers.Main) {
+                    GlobalScope.launch(Dispatchers.Main) {
+                        data?.let {
                             mCurrentStates.postValue(States.redirect_to_home_state)
-                        }
-                    } ?: mCurrentStates.postValue(States.signin_failed_state)
-
-
+                        }?: mCurrentStates.postValue(States.signin_failed_state)
+                    }
                 }
             }
             Action.LoginIntentAction->{
