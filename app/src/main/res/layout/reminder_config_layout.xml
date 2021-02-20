@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/edt_reminder_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_horizontal_screen"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="@dimen/margin_horizontal_screen"
+                android:ems="10"
+                android:hint="Title"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="98dp"
+                tools:layout_editor_absoluteY="114dp" />
+
+            <Button
+                android:id="@+id/edt_start_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_horizontal_screen"
+                android:layout_marginTop="36dp"
+                android:layout_marginEnd="@dimen/margin_horizontal_screen"
+                android:ems="10"
+                android:text="choose a start date"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edt_reminder_title"
+                style="?attr/materialButtonOutlinedStyle"/>
+
+            <Button
+                android:id="@+id/edt_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_horizontal_screen"
+                android:layout_marginTop="36dp"
+                android:layout_marginEnd="@dimen/margin_horizontal_screen"
+                android:ems="10"
+               android:text="choose time"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edt_start_date"
+                style="?attr/materialButtonOutlinedStyle"/>
+
+
+
+            <Button
+                android:id="@+id/btn_add_reminder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:text="SAVE"
+                tools:layout_editor_absoluteX="241dp"
+                tools:layout_editor_absoluteY="492dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edt_time"
+                android:layout_margin="24dp"
+                android:src="@drawable/ic_baseline_check_24"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

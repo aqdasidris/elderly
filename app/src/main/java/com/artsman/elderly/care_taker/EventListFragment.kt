@@ -1,5 +1,7 @@
 package com.artsman.elderly.care_taker
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log.*
 import androidx.fragment.app.Fragment
@@ -7,11 +9,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.artsman.elderly.R
 import com.artsman.elderly.care_taker.api.EventListApi
+import com.artsman.elderly.reminders.AddReminderBottomSheet
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class EventListFragment : Fragment() {
@@ -24,30 +29,48 @@ class EventListFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         repo = AssetCareTakerEventRepository(requireContext(), EventListApi())
-        viewModel= EventListViewModel(repo)
-        mAdapter= EventAdapter()
+        viewModel = EventListViewModel(repo)
+        mAdapter = EventAdapter()
     }
 
+    private val cta_actions=arrayOf("Add Reminder", "Add Steps")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        rootView= inflater.inflate(R.layout.fragment_event_list, container, false)
+        rootView = inflater.inflate(R.layout.fragment_event_list, container, false)
         initialiseRecyclerView()
+        rootView.findViewById<FloatingActionButton>(R.id.btn_add_event).setOnClickListener {
+            AlertDialog
+                .Builder(requireContext())
+                .setItems(cta_actions) { dialog, position ->
+                    Toast.makeText(requireContext(), "${cta_actions[position]} Selected", Toast.LENGTH_SHORT).show()
+                    when(position){
+                        0->{
+                            AddReminderBottomSheet.getInstance().show(childFragmentManager,"add_reminder")
+                        }
+                        1->{}
+                        else-> {}
+                    }
+                }.show()
+
+
+        }
         return rootView
     }
 
     private fun initialiseRecyclerView() {
-        recyclerView= rootView.findViewById(R.id.list_patient)
-        recyclerView.layoutManager= LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        recyclerView.adapter= mAdapter
+        recyclerView = rootView.findViewById(R.id.list_patient)
+        recyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        recyclerView.adapter = mAdapter
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel.subscribe().observe(requireActivity(), Observer {
-            when(it){
+            when (it) {
                 is EventListViewModel.States.Loaded -> {
                     d("DATA", "setData: ${it.items}")
                     mAdapter.setData(it.items)
