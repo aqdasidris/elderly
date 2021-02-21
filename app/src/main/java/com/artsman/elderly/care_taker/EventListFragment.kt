@@ -1,15 +1,19 @@
 package com.artsman.elderly.care_taker
 
 import android.app.AlertDialog
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.DialogInterface
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.util.Log.*
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +21,8 @@ import com.artsman.elderly.R
 import com.artsman.elderly.care_taker.api.EventListApi
 import com.artsman.elderly.reminders.AddReminderBottomSheet
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.util.*
+import kotlin.math.absoluteValue
 
 
 class EventListFragment : Fragment() {
@@ -33,7 +39,9 @@ class EventListFragment : Fragment() {
         mAdapter = EventAdapter()
     }
 
+
     private val cta_actions=arrayOf("Add Reminder", "Add Steps")
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,11 +57,15 @@ class EventListFragment : Fragment() {
                     when(position){
                         0->{
                             AddReminderBottomSheet.getInstance().show(childFragmentManager,"add_reminder")
+
+
+
                         }
                         1->{}
                         else-> {}
                     }
                 }.show()
+
 
 
         }
@@ -69,6 +81,7 @@ class EventListFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         viewModel.subscribe().observe(requireActivity(), Observer {
             when (it) {
                 is EventListViewModel.States.Loaded -> {
@@ -79,6 +92,7 @@ class EventListFragment : Fragment() {
             }
         })
         viewModel.setAction(EventListViewModel.Actions.Start)
+
     }
 
 //    private fun showToast(s: String) {
@@ -93,6 +107,7 @@ class EventListFragment : Fragment() {
 
             }
     }
+
 }
 
 /*

@@ -4,65 +4,63 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/edt_reminder_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_horizontal_screen"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="@dimen/margin_horizontal_screen"
-                android:ems="10"
-                android:hint="Title"
-                android:inputType="textPersonName"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteX="98dp"
-                tools:layout_editor_absoluteY="114dp" />
+    <EditText
+        android:id="@+id/edt_reminder_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_horizontal_screen"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="@dimen/margin_horizontal_screen"
+        android:ems="10"
+        android:hint="Remind about"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        tools:ignore="MissingConstraints" />
 
-            <Button
-                android:id="@+id/edt_start_date"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_horizontal_screen"
-                android:layout_marginTop="36dp"
-                android:layout_marginEnd="@dimen/margin_horizontal_screen"
-                android:ems="10"
-                android:text="choose a start date"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edt_reminder_title"
-                style="?attr/materialButtonOutlinedStyle"/>
-
-            <Button
-                android:id="@+id/edt_time"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_horizontal_screen"
-                android:layout_marginTop="36dp"
-                android:layout_marginEnd="@dimen/margin_horizontal_screen"
-                android:ems="10"
-               android:text="choose time"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edt_start_date"
-                style="?attr/materialButtonOutlinedStyle"/>
+    <Button
+        android:id="@+id/btn_date"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:paddingStart="25dp"
+        android:paddingEnd="25dp"
+        android:text="choose date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_reminder_title" />
 
 
+    <Button
+        android:id="@+id/btn_add_reminder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:src="@drawable/ic_baseline_check_24"
+        android:text="SAVE"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_date"
+        app:layout_constraintVertical_bias="0.666" />
 
-            <Button
-                android:id="@+id/btn_add_reminder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:text="SAVE"
-                tools:layout_editor_absoluteX="241dp"
-                tools:layout_editor_absoluteY="492dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/edt_time"
-                android:layout_margin="24dp"
-                android:src="@drawable/ic_baseline_check_24"/>
+    <TextView
+        android:id="@+id/textView6"
+        style="?attr/textAppearanceHeadline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Add Reminder"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
