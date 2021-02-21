@@ -78,7 +78,7 @@ class AddReminderBottomSheet : BottomSheetDialogFragment() {
             val year= it.get(Calendar.YEAR)
             val hourOfDay= it.get(Calendar.HOUR_OF_DAY)
             val minute= it.get(Calendar.MINUTE)
-            mDateView?.setText("$dayOfWeek $day $monthName $year at $hourOfDay:$minute")
+            mDateView?.text=("$dayOfWeek $day $monthName $year at $hourOfDay:$minute")
         }
     }
 
