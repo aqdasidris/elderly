@@ -58,6 +58,15 @@ class AddReminderBottomSheet : BottomSheetDialogFragment() {
             date.show()
 
         }
+        val btnSave= rootView.findViewById<Button>(R.id.btn_add_reminder)
+        btnSave.setOnClickListener {
+            mDateTime?.let {
+                val millis= it.timeInMillis
+                val message= dateText.text.toString()
+                callback?.invoke(ReminderInfo(dateTime= millis, message = message))
+                dismiss()
+            }
+        }
     }
 
     private fun updateDateOnView() {
@@ -102,6 +111,13 @@ class AddReminderBottomSheet : BottomSheetDialogFragment() {
         mDateTime?.set(Calendar.MINUTE, minute)
     }
 
+    var callback: ((info: ReminderInfo)->Unit)?= null
+
+    fun setReminderInputCompleteCallback(callback: ((info: ReminderInfo)->Unit)){
+        this.callback= callback
+    }
+
+    data class ReminderInfo(val message: String, val dateTime: Long)
 }
 
 

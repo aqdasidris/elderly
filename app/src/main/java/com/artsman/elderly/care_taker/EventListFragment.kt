@@ -55,9 +55,13 @@ class EventListFragment : Fragment() {
                 .setItems(cta_actions) { dialog, position ->
                     Toast.makeText(requireContext(), "${cta_actions[position]} Selected", Toast.LENGTH_SHORT).show()
                     when(position){
-                        0->{
-                            AddReminderBottomSheet.getInstance().show(childFragmentManager,"add_reminder")
-
+                        0 -> {
+                            AddReminderBottomSheet.getInstance().let {
+                                it.setReminderInputCompleteCallback {
+                                    Log.d("DT", "onCreateView: Reminder ${it.message} ${it.dateTime}")
+                                }
+                                it.show(childFragmentManager, "add_reminder")
+                            }
 
 
                         }
