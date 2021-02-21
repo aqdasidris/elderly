@@ -4,14 +4,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:minHeight="200dp">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/edt_step_goal"
+        android:layout_margin="16dp"
+        android:text="Add Step Goal"
+        style="?attr/textAppearanceHeadline4"
+        />
     <EditText
         android:id="@+id/edt_step_goal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="set goal steps"
+        android:hint="no. of steps to be achieved.."
         android:layout_marginStart="@dimen/margin_horizontal_screen"
         android:layout_marginEnd="@dimen/margin_horizontal_screen"
         android:inputType="number"
@@ -20,14 +31,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <Button
         android:id="@+id/btn_add_step_goal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_horizontal_screen"
+        android:layout_marginBottom="50dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:clickable="true"
+        android:text="SET GOAL"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edt_step_goal"
-        android:src="@drawable/ic_baseline_check_24" />
+         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

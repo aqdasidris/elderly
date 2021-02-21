@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.artsman.elderly.R
 import com.artsman.elderly.care_taker.api.EventListApi
 import com.artsman.elderly.reminders.AddReminderBottomSheet
+import com.artsman.elderly.steps.StepBottomSheet
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.util.*
 import kotlin.math.absoluteValue
@@ -65,7 +66,14 @@ class EventListFragment : Fragment() {
 
 
                         }
-                        1->{}
+                        1->{
+                            StepBottomSheet.getInstance().let {
+                                it.setStepCallBack {
+                                    Log.d("Staps", "StepInfo${it.step}")
+                                }
+                                it.show(childFragmentManager,"add steps")
+                            }
+                        }
                         else-> {}
                     }
                 }.show()
