@@ -1,5 +1,6 @@
 package com.artsman.elderly.care_taker.repo
 
+import androidx.lifecycle.LiveData
 import com.artsman.elderly.core.DatabaseProvider
 
 class EventLocalProvider(val databaseProvider: DatabaseProvider){
@@ -8,8 +9,8 @@ class EventLocalProvider(val databaseProvider: DatabaseProvider){
         getEventDao()?.insertAll(*event)
     }
 
-    fun getEvents(): List<DBEvent>{
-        return getEventDao()?.getAllEvent() ?: listOf()
+    fun getEvents(): LiveData<List<DBEvent>>? {
+        return getEventDao()?.getAllEvent()
     }
 
     private fun getEventDao() = databaseProvider.getDatabase()?.getEventDao()

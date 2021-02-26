@@ -98,7 +98,7 @@ class EventListFragment : Fragment() {
             when (it) {
                 is EventListViewModel.States.Loaded -> {
                     d("DATA", "setData: ${it.items}")
-                    mAdapter.setData(it.items)
+                    mAdapter.submitList(it.items)
                 }
                 //EventListViewModel.States.Loading -> showToast("Loading...")
             }

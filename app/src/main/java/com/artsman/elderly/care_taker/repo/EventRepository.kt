@@ -2,17 +2,20 @@ package com.artsman.elderly.care_taker.repo
 
 import android.content.Context
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import com.artsman.elderly.GenericData
 import com.artsman.elderly.care_taker.repo.AbstractEvent.Companion.toDBEvent
+import com.artsman.elderly.care_taker.repo.DBEvent.Companion.toUIEvent
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 interface CareTakerEventRepository{
     //fun fetchEvent():List<EventInfo>
     fun getEventList():List<StepInfo>
-    fun getEventFromLocal(): List<AbstractEvent<Map<String, Any>>>
+    fun getEventFromLocal(): LiveData<List<UIEvent<ISupportedEvent>>>
     suspend fun fetchEventRemote():List<EventInfo>?
-    suspend fun getEventFromRemote():List<AbstractEvent<Map<String, Any>>>?
+    suspend fun getEventFromRemote()
 }
 
 enum class EventType{
@@ -52,9 +55,16 @@ class EventRepository(val context: Context, val remote: EventRemoteProvider, val
         return list;
     }
 
-    override fun getEventFromLocal(): List<AbstractEvent<Map<String, Any>>> {
-        TODO("Not yet implemented")
+    override fun getEventFromLocal(): LiveData<List<UIEvent<ISupportedEvent>>> {
+       val fromDb: LiveData<List<DBEvent>>? = local.databaseProvider.getDatabase()?.getEventDao()?.getAllEvent()
+        val bridge=Transformations.map(fromDb as LiveData<List<DBEvent>>){
+            return@map it.map {
+                it.toUIEvent()
+            }
+        }
+        return bridge
     }
+
 
     private fun parseData(read: String): List<EventInfo> {
         val gson = Gson()
@@ -74,7 +84,7 @@ class EventRepository(val context: Context, val remote: EventRemoteProvider, val
         return response?.body()?.data
     }
 
-    override suspend fun getEventFromRemote(): List<AbstractEvent<Map<String, Any>>>? {
+    override suspend fun getEventFromRemote() {
         val response = remote.getEventsV2()?.execute()
         if (response?.isSuccessful == true) {
 //            Log.d("APIV2", Gson().toJson(response.body()))
@@ -86,7 +96,6 @@ class EventRepository(val context: Context, val remote: EventRemoteProvider, val
         }else {
             Log.d("APIV2", "Failed: ${response?.errorBody()}")
         }
-        return response?.body()?.data
     }
 
     private fun readFromAsset(): String {

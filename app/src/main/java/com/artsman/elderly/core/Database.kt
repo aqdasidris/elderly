@@ -1,6 +1,7 @@
 package com.artsman.elderly.core
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.artsman.elderly.care_taker.repo.DBEvent
 import java.util.*
@@ -11,7 +12,13 @@ interface EventDao {
     fun insertAll(vararg events: DBEvent)
 
     @Query("select * from events_table")
-    fun getAllEvent(): List<DBEvent>
+    fun getAllEventAsync(): List<DBEvent>
+
+    @Query("select * from events_table")
+    fun getAllEvent(): LiveData<List<DBEvent>>
+
+    @Delete
+    fun delete(vararg events:DBEvent)
 }
 
 @Database(entities = arrayOf(DBEvent::class), version = 1)
