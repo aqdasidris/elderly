@@ -3,9 +3,6 @@ package com.artsman.elderly.patient_list
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.artsman.elderly.care_taker.CareTakerEventRepository
-import com.artsman.elderly.care_taker.EventInfo
-import com.artsman.elderly.patient_info.PAction
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

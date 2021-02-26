@@ -3,13 +3,14 @@ package com.artsman.elderly.care_taker
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.artsman.elderly.GenericData
+import com.artsman.elderly.care_taker.repo.CareTakerEventRepository
+import com.artsman.elderly.care_taker.repo.EventInfo
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class EventListViewModel(val repo:CareTakerEventRepository): ViewModel() {
+class EventListViewModel(val repo: CareTakerEventRepository): ViewModel() {
 
     private val mCurrentState = MutableLiveData<States>()
     fun subscribe(): LiveData<States> {
@@ -24,8 +25,8 @@ class EventListViewModel(val repo:CareTakerEventRepository): ViewModel() {
                 GlobalScope.launch(Dispatchers.Main) {
                     mCurrentState.postValue(States.Loaded(it))
                 }
-
             }
+            val datav2= repo.getEventFromRemote()
         }
     }
 

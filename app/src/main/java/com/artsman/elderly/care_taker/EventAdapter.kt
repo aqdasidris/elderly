@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.artsman.elderly.R
-import com.artsman.elderly.patient_info.PatientItem
+import com.artsman.elderly.care_taker.repo.EventInfo
 
 class EventAdapter:RecyclerView.Adapter<EventAdapter.EventItemViewHolder>() {
 
@@ -37,7 +37,7 @@ class EventAdapter:RecyclerView.Adapter<EventAdapter.EventItemViewHolder>() {
         private var txtSteps:TextView=itemView.findViewById<TextView>(R.id.txtSteps)
         private var imgAvatar: ImageView? =itemView.findViewById<ImageView>(R.id.img_avatar)
 
-        fun bind(data:EventInfo){
+        fun bind(data: EventInfo){
             txtEventName.text=data.title
             txtGoal.text=data.goal
             txtSteps.text=data.steps

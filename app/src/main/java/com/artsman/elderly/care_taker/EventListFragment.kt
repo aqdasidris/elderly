@@ -1,9 +1,6 @@
 package com.artsman.elderly.care_taker
 
 import android.app.AlertDialog
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
-import android.content.DialogInterface
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -18,12 +15,14 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.artsman.elderly.R
-import com.artsman.elderly.care_taker.api.EventListApi
+import com.artsman.elderly.care_taker.repo.EventRepository
+import com.artsman.elderly.care_taker.repo.CareTakerEventRepository
+import com.artsman.elderly.care_taker.repo.EventLocalProvider
+import com.artsman.elderly.care_taker.repo.EventRemoteProvider
+import com.artsman.elderly.core.DatabaseProvider
 import com.artsman.elderly.reminders.AddReminderBottomSheet
 import com.artsman.elderly.steps.StepBottomSheet
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import java.util.*
-import kotlin.math.absoluteValue
 
 
 class EventListFragment : Fragment() {
@@ -35,7 +34,8 @@ class EventListFragment : Fragment() {
     lateinit var mAdapter: EventAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        repo = AssetCareTakerEventRepository(requireContext(), EventListApi())
+        repo = EventRepository(requireContext(), EventRemoteProvider(), EventLocalProvider(
+            DatabaseProvider.getInstance(requireActivity())))
         viewModel = EventListViewModel(repo)
         mAdapter = EventAdapter()
     }
