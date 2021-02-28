@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.artsman.elderly.R
 import com.artsman.elderly.care_taker.repo.*
+import com.artsman.elderly.core.StepDataBase
 
 class EventAdapter : ListAdapter<UIEvent<ISupportedEvent>, RecyclerView.ViewHolder>(
     DIFFCALLBACK
@@ -82,6 +83,7 @@ class EventAdapter : ListAdapter<UIEvent<ISupportedEvent>, RecyclerView.ViewHold
         if (holder is IEventViewHolder<*>) {
             holder.bind(getItem(position) as UIEvent<Nothing>)
         }
+
     }
 
     override fun getItemCount(): Int {
@@ -96,11 +98,14 @@ class EventAdapter : ListAdapter<UIEvent<ISupportedEvent>, RecyclerView.ViewHold
         private var txtSteps: TextView = itemView.findViewById<TextView>(R.id.txtSteps)
         private var imgAvatar: ImageView? = itemView.findViewById<ImageView>(R.id.img_avatar)
 
+
         override fun bind(data: UIEvent<StepInfo>) {
             txtEventName.text = data.event_name
             txtGoal.text = data.event_info.goal+" steps."
             txtSteps.text = data.event_info.steps
         }
+
+
 
     }
 
@@ -116,6 +121,7 @@ class EventAdapter : ListAdapter<UIEvent<ISupportedEvent>, RecyclerView.ViewHold
             txtGoal.text = data.event_info.title
             txtSteps.text = "${data.event_info.lat}, ${data.event_info.long}"
         }
+
     }
 
 

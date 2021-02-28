@@ -16,11 +16,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.artsman.elderly.R
 import com.artsman.elderly.care_taker.EventAdapter
 import com.artsman.elderly.care_taker.EventListViewModel
+import com.artsman.elderly.core.DatabaseProvider
 import com.artsman.elderly.patient_activity_bio.PatientBioActivity
 import com.artsman.elderly.patient_info.AssetPatientRepository
 import com.artsman.elderly.patient_info.PatientInfoRepository
 import com.artsman.elderly.patient_info.api.PatientInfoAPI
-import com.artsman.elderly.patient_list.PatientListAPI.PatientListApi
+import com.artsman.elderly.patient_list.repo.PatientLocalProvider
+import com.artsman.elderly.patient_list.repo.PatientRemoteProvider
+import com.artsman.elderly.patient_list.repo.UIPatient
 import kotlinx.android.synthetic.main.event_add_success.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -43,7 +46,8 @@ class PatientListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        repo = AssetPatientListRepository(requireContext(), PatientListApi())
+        repo = AssetPatientListRepository(requireContext(), PatientRemoteProvider(),
+            PatientLocalProvider(databaseProvider = DatabaseProvider.getInstance(requireActivity())))
         viewModel= PatientListViewModel(repo)
         mAdapter= PatientAdapter()
     }
@@ -64,7 +68,7 @@ class PatientListFragment : Fragment() {
         recyclerView.layoutManager= GridLayoutManager(requireContext(), 3)
         recyclerView.adapter= mAdapter
         mAdapter.setPatientClickListener(object : PatientAdapter.IPatientClickListener{
-            override fun onPatientClicked(item: PatientListItem) {
+            override fun onPatientClicked(item: UIPatient) {
                 loadPatientBio(item)
             }
 
@@ -86,7 +90,7 @@ class PatientListFragment : Fragment() {
         viewModel.setAction(PatientListViewModel.Actions.Start)
 
     }
-    fun loadPatientBio(data: PatientListItem){
+    fun loadPatientBio(data: UIPatient){
         val intent=Intent(requireActivity(),PatientBioActivity::class.java)
         startActivity(intent)
     }

@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.artsman.elderly.care_taker.repo.DBEvent
+import com.artsman.elderly.patient_list.repo.DBPatient
 import java.util.*
 
 @Dao
@@ -21,9 +22,26 @@ interface EventDao {
     fun delete(vararg events:DBEvent)
 }
 
-@Database(entities = arrayOf(DBEvent::class), version = 1)
+@Dao
+interface PatientDao{
+    @Insert
+    fun insertAll(vararg patients:DBPatient)
+
+    @Query("select * from patient_table")
+    fun getAllPatientsAsync():List<DBPatient>
+
+    @Query("select * from patient_table")
+    fun getAllPatients():LiveData<List<DBPatient>>
+
+    @Delete
+    fun delete(vararg patients:DBPatient)
+}
+
+
+@Database(entities = arrayOf(DBEvent::class,DBPatient::class), version = 1)
 abstract class StepDataBase : RoomDatabase() {
     abstract fun getEventDao(): EventDao
+    abstract fun getPatientDao():PatientDao
 }
 
 
