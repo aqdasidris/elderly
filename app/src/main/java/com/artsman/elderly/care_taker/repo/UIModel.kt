@@ -11,6 +11,7 @@ data class ReminderInfo(val title: String, val time: Long, val repeat: Int) : IS
 
 
 open class UIEvent<out T : ISupportedEvent>(
+    open  val id: Int,
     open val event_name: String,
     open val event_id: String,
     open val event_type: EventType,
@@ -21,23 +22,27 @@ open class UIEvent<out T : ISupportedEvent>(
     companion object {
         fun UIEvent<ISupportedEvent>.toDBEvent(): DBEvent {
             return DBEvent(
+                id = this.id,
                 event_name = this.event_name,
                 event_id = this.event_id,
                 event_type = this.event_type.name,
                 created_at = this.created_at,
                 event_info = this.event_info.toString()
+
             )
         }
     }
 }
 
 data class StepEvent(
+    override val id: Int,
     override val event_name: String,
     override val event_id: String,
     override val event_type: EventType,
     override val created_at: String,
     override val event_info: StepInfo
 ) : UIEvent<StepInfo>(
+    id,
     event_name,
     event_id,
     event_type,
@@ -48,12 +53,14 @@ data class StepEvent(
 }
 
 data class LocationEvent(
+    override val id: Int,
     override val event_name: String,
     override val event_id: String,
     override val event_type: EventType,
     override val created_at: String,
     override val event_info: LocationInfo
 ) : UIEvent<LocationInfo>(
+    id,
     event_name,
     event_id,
     event_type,
@@ -64,12 +71,14 @@ data class LocationEvent(
 }
 
 data class ReminderEvent(
+    override val id:Int,
     override val event_name: String,
     override val event_id: String,
     override val event_type: EventType,
     override val created_at: String,
     override val event_info: ReminderInfo
 ) : UIEvent<ReminderInfo>(
+    id,
     event_name,
     event_id,
     event_type,

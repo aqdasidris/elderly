@@ -23,6 +23,7 @@ data class DBEvent(
             return when (this.event_type) {
                 "steps" -> {
                     StepEvent(
+                        this.id,
                         this.event_name,
                         this.event_id,
                         EventType.valueOf(this.event_type),
@@ -35,6 +36,7 @@ data class DBEvent(
                 }
                 "location" -> {
                     LocationEvent(
+                        this.id,
                         this.event_name,
                         this.event_id,
                         EventType.valueOf(this.event_type),
@@ -47,6 +49,7 @@ data class DBEvent(
                 }
                 else -> {
                     ReminderEvent(
+                        this.id,
                         this.event_name,
                         this.event_id,
                         EventType.valueOf(this.event_type),

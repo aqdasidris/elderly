@@ -12,9 +12,9 @@ import com.artsman.elderly.R
 import com.artsman.elderly.care_taker.repo.*
 import com.artsman.elderly.core.StepDataBase
 
-class EventAdapter : ListAdapter<UIEvent<ISupportedEvent>, RecyclerView.ViewHolder>(
+abstract class EventAdapter : ListAdapter<UIEvent<ISupportedEvent>, RecyclerView.ViewHolder>(
     DIFFCALLBACK
-) {
+),ICanDeleteEvent {
 
     val TYPE_STEPS = 0
     val TYPE_LOCATION = 1
@@ -58,23 +58,23 @@ class EventAdapter : ListAdapter<UIEvent<ISupportedEvent>, RecyclerView.ViewHold
             TYPE_STEPS -> {
                 itemView = LayoutInflater.from(parent.context)
                     .inflate(R.layout.item_event_list, parent, false)
-                EventItemViewHolderSteps(itemView)
+                EventItemViewHolderSteps(itemView,this)
             }
             TYPE_LOCATION -> {
                 itemView = LayoutInflater.from(parent.context)
                     .inflate(R.layout.item_event_list_location, parent, false)
-                EventItemViewHolderLocation(itemView)
+                EventItemViewHolderLocation(itemView,this)
             }
 
             TYPE_REMINDER -> {
                 itemView = LayoutInflater.from(parent.context)
                     .inflate(R.layout.item_event_list_reminder, parent, false)
-                EventItemViewHolderReminder(itemView)
+                EventItemViewHolderReminder(itemView, this)
             }
             else -> {
                 itemView = LayoutInflater.from(parent.context)
                     .inflate(R.layout.item_event_list, parent, false)
-                EventItemViewHolderSteps(itemView)
+                EventItemViewHolderSteps(itemView, this)
             }
         }
     }
@@ -91,51 +91,64 @@ class EventAdapter : ListAdapter<UIEvent<ISupportedEvent>, RecyclerView.ViewHold
     }
 
 
-    class EventItemViewHolderSteps(itemView: View) : RecyclerView.ViewHolder(itemView),
+    class EventItemViewHolderSteps(itemView: View,val deleteCallBack:ICanDeleteEvent) : RecyclerView.ViewHolder(itemView),
         IEventViewHolder<StepInfo> {
         private var txtEventName: TextView = itemView.findViewById<TextView>(R.id.txtEventName)
         private var txtGoal: TextView = itemView.findViewById<TextView>(R.id.txtGoal)
         private var txtSteps: TextView = itemView.findViewById<TextView>(R.id.txtSteps)
         private var imgAvatar: ImageView? = itemView.findViewById<ImageView>(R.id.img_avatar)
+        private var imgDelete:ImageView?=itemView.findViewById<ImageView>(R.id.img_delete)
 
 
         override fun bind(data: UIEvent<StepInfo>) {
             txtEventName.text = data.event_name
             txtGoal.text = data.event_info.goal+" steps."
             txtSteps.text = data.event_info.steps
+            imgDelete?.setOnClickListener {
+                deleteCallBack.onDelete(data)
+            }
         }
 
 
 
     }
 
-    class EventItemViewHolderLocation(itemView: View) : RecyclerView.ViewHolder(itemView),
+    class EventItemViewHolderLocation(itemView: View,val deleteCallBack:ICanDeleteEvent) : RecyclerView.ViewHolder(itemView),
         IEventViewHolder<LocationInfo> {
         private var txtEventName: TextView = itemView.findViewById<TextView>(R.id.txtEventName)
         private var txtGoal: TextView = itemView.findViewById<TextView>(R.id.txtGoal)
         private var txtSteps: TextView = itemView.findViewById<TextView>(R.id.txtSteps)
         private var imgAvatar: ImageView? = itemView.findViewById<ImageView>(R.id.img_avatar)
+        private var imgDelete:ImageView?=itemView.findViewById<ImageView>(R.id.img_delete)
+
 
         override fun bind(data: UIEvent<LocationInfo>) {
             txtEventName.text = data.event_name
             txtGoal.text = data.event_info.title
             txtSteps.text = "${data.event_info.lat}, ${data.event_info.long}"
+            imgDelete?.setOnClickListener {
+                deleteCallBack.onDelete(data)
+            }
         }
 
     }
 
 
- class EventItemViewHolderReminder(itemView: View) : RecyclerView.ViewHolder(itemView),
+ class EventItemViewHolderReminder(itemView: View, val deleteCallBack:ICanDeleteEvent) : RecyclerView.ViewHolder(itemView),
         IEventViewHolder<ReminderInfo> {
         private var txtEventName: TextView = itemView.findViewById<TextView>(R.id.txtEventName)
         private var txtGoal: TextView = itemView.findViewById<TextView>(R.id.txtGoal)
         private var txtSteps: TextView = itemView.findViewById<TextView>(R.id.txtSteps)
         private var imgAvatar: ImageView? = itemView.findViewById<ImageView>(R.id.img_avatar)
+        private var imgDelete:ImageView?=itemView.findViewById<ImageView>(R.id.img_delete)
 
         override fun bind(data: UIEvent<ReminderInfo>) {
             txtEventName.text = data.event_name
             txtGoal.text = data.event_info.title
             txtSteps.text = "${data.event_info.time}"
+            imgDelete?.setOnClickListener {
+                deleteCallBack.onDelete(data)
+            }
         }
     }
 
@@ -143,4 +156,11 @@ class EventAdapter : ListAdapter<UIEvent<ISupportedEvent>, RecyclerView.ViewHold
         fun bind(data: UIEvent<T>)
     }
 
+
+    abstract override fun onDelete(event:UIEvent<ISupportedEvent>)
+
+}
+
+interface ICanDeleteEvent{
+    fun onDelete(event:UIEvent<ISupportedEvent>)
 }

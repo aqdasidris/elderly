@@ -15,10 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.artsman.elderly.R
-import com.artsman.elderly.care_taker.repo.EventRepository
-import com.artsman.elderly.care_taker.repo.CareTakerEventRepository
-import com.artsman.elderly.care_taker.repo.EventLocalProvider
-import com.artsman.elderly.care_taker.repo.EventRemoteProvider
+import com.artsman.elderly.care_taker.repo.*
 import com.artsman.elderly.core.DatabaseProvider
 import com.artsman.elderly.reminders.AddReminderBottomSheet
 import com.artsman.elderly.steps.StepBottomSheet
@@ -37,7 +34,12 @@ class EventListFragment : Fragment() {
         repo = EventRepository(requireContext(), EventRemoteProvider(), EventLocalProvider(
             DatabaseProvider.getInstance(requireActivity())))
         viewModel = EventListViewModel(repo)
-        mAdapter = EventAdapter()
+        mAdapter =object :EventAdapter(){
+            override fun onDelete(event: UIEvent<ISupportedEvent>) {
+                viewModel.setAction(EventListViewModel.Actions.Delete(event))
+            }
+
+        }
     }
 
 

@@ -14,4 +14,7 @@ class EventLocalProvider(val databaseProvider: DatabaseProvider){
     }
 
     private fun getEventDao() = databaseProvider.getDatabase()?.getEventDao()
+    fun remove(toDBEvent: DBEvent) {
+        getEventDao()?.delete(toDBEvent)
+    }
 }

@@ -1,5 +1,6 @@
 package com.artsman.elderly.care_taker
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -22,13 +23,25 @@ class EventListViewModel(val repo: CareTakerEventRepository) : ViewModel() {
     }
 
     fun setAction(action: Actions) {
-        mCurrentState.postValue(States.Loading)
-        GlobalScope.launch(Dispatchers.IO) {
-            repo.getEventFromRemote()
+        when(action){
+            is Actions.Delete -> {
+                GlobalScope.launch(Dispatchers.IO) {
+                    repo.remove(action.uiEvent)
+
+                }
+            }
+            Actions.Start -> {
+                mCurrentState.postValue(States.Loading)
+                GlobalScope.launch(Dispatchers.IO) {
+                    repo.getEventFromRemote()
+                }
+                mCurrentState.addSource(repo.getEventFromLocal()) { items ->
+                    Log.d("DELETE", "setAction: On Change- Size: ${items}")
+                    mCurrentState.postValue(States.Loaded(items = items))
+                }
+            }
         }
-        mCurrentState.addSource(repo.getEventFromLocal()) { items ->
-            mCurrentState.postValue(States.Loaded(items = items))
-        }
+
     }
 
 
@@ -40,6 +53,7 @@ class EventListViewModel(val repo: CareTakerEventRepository) : ViewModel() {
 
     sealed class Actions {
         object Start : Actions()
+        data class Delete(val uiEvent: UIEvent<ISupportedEvent>): Actions()
     }
 }
 

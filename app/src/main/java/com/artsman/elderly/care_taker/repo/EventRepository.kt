@@ -7,6 +7,7 @@ import androidx.lifecycle.Transformations
 import com.artsman.elderly.GenericData
 import com.artsman.elderly.care_taker.repo.AbstractEvent.Companion.toDBEvent
 import com.artsman.elderly.care_taker.repo.DBEvent.Companion.toUIEvent
+import com.artsman.elderly.care_taker.repo.UIEvent.Companion.toDBEvent
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -16,6 +17,7 @@ interface CareTakerEventRepository{
     fun getEventFromLocal(): LiveData<List<UIEvent<ISupportedEvent>>>
     suspend fun fetchEventRemote():List<EventInfo>?
     suspend fun getEventFromRemote()
+    suspend fun remove(uiEvent: UIEvent<ISupportedEvent>)
 }
 
 enum class EventType{
@@ -96,6 +98,10 @@ class EventRepository(val context: Context, val remote: EventRemoteProvider, val
         }else {
             Log.d("APIV2", "Failed: ${response?.errorBody()}")
         }
+    }
+
+    override suspend fun remove(uiEvent: UIEvent<ISupportedEvent>) {
+        local.remove(uiEvent.toDBEvent())
     }
 
     private fun readFromAsset(): String {
