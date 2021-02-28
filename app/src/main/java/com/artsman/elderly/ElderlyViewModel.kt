@@ -59,11 +59,15 @@ class ElderlyViewModel(val repository: IRegisterationRepository):ViewModel(){
                 repository.getPatientMail(getPatientMail())
             }
             Action.SignUpAction -> {
+                mCurrentStates.postValue(States.add_patient_state)
                 repository.getGuardianCreds(getGuardianCreds())
             }
             Action.DoneAction -> {
                 mCurrentStates.postValue(States.user_type_state)
                 repository.getGuardianCode(getGuardianCode())
+            }
+            Action.AddPatient->{
+                mCurrentStates.postValue(States.redirect_to_home_state)
             }
             Action.BackAction -> {
                 if(mCurrentStates.value==States.guardian_registration_personal_info_state){
@@ -139,7 +143,8 @@ enum class States{
     kill_state,
     log_in_state,
     redirect_to_home_state,
-    signin_failed_state
+    signin_failed_state,
+    add_patient_state
 }
 
 
@@ -154,6 +159,7 @@ sealed class Action{
     object DoneAction: Action()
     object LoginIntentAction: Action()
     data class LogIn(val username: String, val password: String): Action()
+    object AddPatient:Action()
 
 
 

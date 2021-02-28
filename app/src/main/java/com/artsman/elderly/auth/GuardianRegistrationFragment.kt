@@ -1,6 +1,7 @@
 package com.artsman.elderly.auth
 
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -19,10 +20,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.artsman.elderly.*
 import com.artsman.elderly.Action.*
+import com.artsman.elderly.add_patient.AddPatientActivity
 import com.artsman.elderly.auth.user_auth_api.UserAuthApi
 import com.artsman.elderly.data.AppPreference
 import com.artsman.elderly.data.IPreferenceHelper
 import com.artsman.elderly.patient_list.PatientListFragment
+import kotlinx.android.synthetic.main.fragment_patient_info.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -164,7 +167,6 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
             viewModel.putValue(ElderlyViewModel.SETPASSWORD, edtSetPassword.text.toString())
             viewModel.putValue(ElderlyViewModel.CONFIRMPASSWORD, edtConfirmPassword.text.toString())
             viewModel.setAction(SignUpAction)
-            startPatientBio()
         }
     }
     fun configurePatientLogin(){
@@ -203,6 +205,15 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
         val btn_choose_patient=mSceneRoot.findViewById<Button>(R.id.btn_choose_patient)
         btn_choose_patient.setOnClickListener { viewModel.setAction(PatientUserTypeAction) }
     }
+    fun configureAddPatientScreen(){
+        val addPatient=Scene.getSceneForLayout(sceneRoot,R.layout.add_patient_layout,requireContext())
+        addPatient.enter()
+        val addPatientBtn=mSceneRoot.findViewById<Button>(R.id.btn_proceed_to_patient_bio)
+        addPatientBtn.setOnClickListener {
+            startPatientBio()
+            viewModel.setAction(Action.AddPatient)
+        }
+    }
 
     private var mTxtUsername: EditText?= null
     private var mTxtPassword: EditText?= null
@@ -230,6 +241,8 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
                 }
             }
         }
+
+
 
         override fun afterTextChanged(s: Editable?) { }
     }
@@ -263,6 +276,9 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
         else if(states==States.signin_failed_state){
             mTxtUsername?.setError("Invalid Username or Password")
         }
+        else if(states==States.add_patient_state){
+            startAddPatient()
+        }
 
         else if(states== States.kill_state){
             activity?.finish()
@@ -271,6 +287,10 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
     }
 
 
+    private fun startAddPatient(){
+        val intent=Intent(requireActivity(),AddPatientActivity::class.java)
+        startActivity(intent)
+    }
 
 
     private fun startPatientBio(){

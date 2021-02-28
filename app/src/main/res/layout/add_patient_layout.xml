@@ -6,39 +6,101 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add your patient"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.125" />
-
-    <EditText
-        android:id="@+id/edtPatientEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="232dp"
-        android:ems="10"
-        android:hint="Patient Email address"
-        android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-    <Button
-        android:id="@+id/btn_proceed_to_patient_bio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Proceed"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/edtPatientEmail"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="@+id/edtPatientEmail"
-        app:layout_constraintTop_toBottomOf="@+id/edtPatientEmail"
-        app:layout_constraintVertical_bias="0.767" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/add_patient_card"
+        android:layout_margin="16dp">
+        
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Add your patient"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_margin="16dp"
+                style="?attr/textAppearanceHeadline4"/>
+            
+
+            
+            <EditText
+                android:id="@+id/edt_patient_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:ems="10"
+                android:hint="Enter patient's name"
+                android:inputType="textEmailAddress"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="@dimen/margin_horizontal_screen"
+                android:layout_marginEnd="@dimen/margin_horizontal_screen"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+            <EditText
+                android:id="@+id/edt_patient_age"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/edt_patient_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:hint="enter your patients age"
+                android:inputType="number"
+                android:layout_marginStart="@dimen/margin_horizontal_screen"
+                android:layout_marginEnd="@dimen/margin_horizontal_screen"/>
+
+            <EditText
+                android:id="@+id/edt_patient_phone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/edt_patient_age"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="@dimen/margin_horizontal_screen"
+                android:layout_marginEnd="@dimen/margin_horizontal_screen"
+                android:hint="enter your patient's phone number"/>
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/edt_patient_phone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:hint="enter your patient's weight"
+                android:layout_marginEnd="@dimen/margin_horizontal_screen"
+                android:layout_marginStart="@dimen/margin_horizontal_screen"
+                android:id="@+id/edt_patient_weight"/>
+
+            
+        
+            <Button
+                android:id="@+id/btn_proceed_to_patient_bio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Proceed"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_margin="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/edt_patient_weight"
+                app:layout_constraintVertical_bias="0.767" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+    
 </androidx.constraintlayout.widget.ConstraintLayout>

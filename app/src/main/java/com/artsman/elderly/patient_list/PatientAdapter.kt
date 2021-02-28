@@ -15,8 +15,11 @@ import com.artsman.elderly.patient_activity_bio.PatientBioActivity
 import com.artsman.elderly.patient_info.PatientItem
 import com.artsman.elderly.patient_list.repo.UIPatient
 import com.artsman.elderly.utils.PicassoCircleTransformation
+import com.bumptech.glide.Glide
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import okhttp3.Cache.key
+import java.lang.Exception
 import java.util.*
 
 class PatientAdapter : RecyclerView.Adapter<PatientAdapter.PatientItemViewHolder>() {
@@ -60,8 +63,19 @@ class PatientAdapter : RecyclerView.Adapter<PatientAdapter.PatientItemViewHolder
                 listener?.onPatientClicked(data)
             }
 
-            Picasso.get().load(data.photoUrl).transform(PicassoCircleTransformation()).into(imgAvatar)
+            Glide.with(itemView).load(data.photoUrl).into(imgAvatar)
 
+//            Picasso.get()
+//                .load(data.photoUrl)
+//                .transform(PicassoCircleTransformation())
+//                .into(imgAvatar, object : Callback {
+//                    override fun onSuccess() {}
+//
+//                    override fun onError(e: Exception?) {
+//                        Log.e("Avatar", "onError: ${e?.message}")
+//                    }
+//
+//                })
 
         }
 
