@@ -66,9 +66,6 @@ class ElderlyViewModel(val repository: IRegisterationRepository):ViewModel(){
                 mCurrentStates.postValue(States.user_type_state)
                 repository.getGuardianCode(getGuardianCode())
             }
-            Action.AddPatient->{
-                mCurrentStates.postValue(States.redirect_to_home_state)
-            }
             Action.BackAction -> {
                 if(mCurrentStates.value==States.guardian_registration_personal_info_state){
                     mCurrentStates.postValue(States.user_type_state)

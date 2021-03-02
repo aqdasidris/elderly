@@ -88,7 +88,7 @@
             
         
             <Button
-                android:id="@+id/btn_proceed_to_patient_bio"
+                android:id="@+id/btn_proceed_backto_patientlist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Proceed"

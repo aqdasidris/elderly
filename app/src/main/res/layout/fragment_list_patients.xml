@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 <com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:id="@+id/btn_add_event"
+    android:id="@+id/btn_add_patient"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     tools:ignore="MissingConstraints"

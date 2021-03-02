@@ -1,13 +1,17 @@
+
 package com.artsman.elderly.add_patient
 
+import android.content.Intent
 import android.os.Bundle
 import android.transition.Scene
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.lifecycle.Observer
 import com.artsman.elderly.R
+import com.artsman.elderly.patient_list.PatientListFragment
 import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -55,12 +59,23 @@ class AddPatientFragment : Fragment() {
     fun configureAddPatientScreen(){
         val addPatientScreen=Scene.getSceneForLayout(mSceneRoot as ViewGroup?,R.layout.add_patient_layout,requireContext())
         addPatientScreen.enter()
+        val addPatientbtn=mSceneRoot.findViewById<Button>(R.id.btn_proceed_backto_patientlist)
+        addPatientbtn.setOnClickListener {
+            loadBackToPatientlist()
+        }
     }
 
     fun setState(state: AddPatientViewModel.States){
         if(state== AddPatientViewModel.States.LoadedState){
             configureAddPatientScreen()
         }
+    }
+
+    fun loadBackToPatientlist(){
+        val fragmentManager=getFragmentManager()
+        val fragmentTransaction=fragmentManager?.beginTransaction()
+        fragmentTransaction?.replace(R.id.sceneRoot,  PatientListFragment())
+        fragmentTransaction?.commit()
     }
 
     companion object {

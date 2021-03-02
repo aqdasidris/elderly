@@ -63,19 +63,19 @@ class PatientAdapter : RecyclerView.Adapter<PatientAdapter.PatientItemViewHolder
                 listener?.onPatientClicked(data)
             }
 
-            Glide.with(itemView).load(data.photoUrl).into(imgAvatar)
+//            Glide.with(itemView).load(data.photoUrl).into(imgAvatar)
 
-//            Picasso.get()
-//                .load(data.photoUrl)
-//                .transform(PicassoCircleTransformation())
-//                .into(imgAvatar, object : Callback {
-//                    override fun onSuccess() {}
-//
-//                    override fun onError(e: Exception?) {
-//                        Log.e("Avatar", "onError: ${e?.message}")
-//                    }
-//
-//                })
+            Picasso.get()
+                .load(data.photoUrl)
+                .transform(PicassoCircleTransformation())
+                .into(imgAvatar, object : Callback {
+                    override fun onSuccess() {}
+
+                    override fun onError(e: Exception?) {
+                        Log.e("Avatar", "onError: ${e?.message}")
+                    }
+
+                })
 
         }
 

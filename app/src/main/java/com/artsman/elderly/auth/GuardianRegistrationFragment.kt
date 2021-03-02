@@ -205,15 +205,7 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
         val btn_choose_patient=mSceneRoot.findViewById<Button>(R.id.btn_choose_patient)
         btn_choose_patient.setOnClickListener { viewModel.setAction(PatientUserTypeAction) }
     }
-    fun configureAddPatientScreen(){
-        val addPatient=Scene.getSceneForLayout(sceneRoot,R.layout.add_patient_layout,requireContext())
-        addPatient.enter()
-        val addPatientBtn=mSceneRoot.findViewById<Button>(R.id.btn_proceed_to_patient_bio)
-        addPatientBtn.setOnClickListener {
-            startPatientBio()
-            viewModel.setAction(Action.AddPatient)
-        }
-    }
+
 
     private var mTxtUsername: EditText?= null
     private var mTxtPassword: EditText?= null

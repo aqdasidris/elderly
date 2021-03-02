@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.artsman.elderly.R
+import com.artsman.elderly.add_patient.AddPatientActivity
 import com.artsman.elderly.care_taker.EventAdapter
 import com.artsman.elderly.care_taker.EventListViewModel
 import com.artsman.elderly.core.DatabaseProvider
@@ -24,6 +25,7 @@ import com.artsman.elderly.patient_info.api.PatientInfoAPI
 import com.artsman.elderly.patient_list.repo.PatientLocalProvider
 import com.artsman.elderly.patient_list.repo.PatientRemoteProvider
 import com.artsman.elderly.patient_list.repo.UIPatient
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.event_add_success.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -59,6 +61,9 @@ class PatientListFragment : Fragment() {
         // Inflate the layout for this fragment
         rootView=inflater.inflate(R.layout.fragment_list_patients, container, false)
         initialiseRecyclerView()
+        rootView.findViewById<FloatingActionButton>(R.id.btn_add_patient).setOnClickListener {
+            loadAddPatient()
+        }
         return rootView
 
     }
@@ -90,6 +95,11 @@ class PatientListFragment : Fragment() {
         viewModel.setAction(PatientListViewModel.Actions.Start)
 
     }
+    fun loadAddPatient(){
+        val intent=Intent(requireActivity(),AddPatientActivity::class.java)
+        startActivity(intent)
+    }
+
     fun loadPatientBio(data: UIPatient){
         val intent=Intent(requireActivity(),PatientBioActivity::class.java)
         startActivity(intent)
