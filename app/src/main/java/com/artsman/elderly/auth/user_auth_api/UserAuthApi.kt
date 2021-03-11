@@ -21,14 +21,8 @@ class UserAuthApi(private val retrofit: Retrofit? = getRetrofitInstance()) {
 
     data class Creds(val username: String,val pass:String)
     interface IUserAuthApi {
-        @Deprecated("use post method")
-        @GET("/sample/authuser")
-        fun userAuth(
-            @Query("username") admin: String,
-            @Query("pass") password: String
-        ): Call<AuthUser>
 
-        @POST("/sample/authuser")
+        @POST("/api/authuser")
         fun userAuthPost(@Body credentials: Creds): Call<AuthUser>
     }
 }

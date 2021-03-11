@@ -22,6 +22,7 @@ import com.artsman.elderly.*
 import com.artsman.elderly.Action.*
 import com.artsman.elderly.add_patient.AddPatientActivity
 import com.artsman.elderly.auth.user_auth_api.UserAuthApi
+import com.artsman.elderly.core.getRetrofitInstance
 import com.artsman.elderly.data.AppPreference
 import com.artsman.elderly.data.IPreferenceHelper
 import com.artsman.elderly.patient_list.PatientListFragment
@@ -67,7 +68,8 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
         // Inflate the layout for this fragment
 
         val view=inflater.inflate(R.layout.fragment_guardian_registration, container, false)
-        viewModel= ElderlyViewModel(RegistrationRepo(getPrefHelper(), UserAuthApi()))
+        viewModel= ElderlyViewModel(RegistrationRepo(getPrefHelper(), UserAuthApi(
+            getRetrofitInstance(requireContext()))))
         viewModel.getState().observe(this, elderlyObserver)
         mSceneRoot=view.findViewById<View>(R.id.sceneRoot)
         return view
@@ -217,7 +219,7 @@ class GuardianRegistrationFragment : Fragment(), ICanHandleBackPress {
         mTxtUsername=mSceneRoot.findViewById<EditText>(R.id.edtEmail)
         mTxtPassword=mSceneRoot.findViewById<EditText>(R.id.edtPassword)
         loginbtn.setOnClickListener {
-            viewModel.setAction(LogIn("admin","admin"))
+            viewModel.setAction(LogIn(mTxtUsername?.text.toString()?: "",mTxtPassword?.text.toString()?: ""))
         }
         mTxtUsername?.addTextChangedListener(textWatcherUsername)
     }
